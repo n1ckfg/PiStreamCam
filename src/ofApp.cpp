@@ -9,8 +9,6 @@ void ofApp::setup() {
     ofSetVerticalSync(false);
     ofHideCursor();
 
-
-
     framerate = settings.getValue("settings:framerate", 60);
     width = settings.getValue("settings:width", 160);
     height = settings.getValue("settings:height", 120);

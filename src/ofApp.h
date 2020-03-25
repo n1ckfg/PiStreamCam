@@ -13,7 +13,7 @@ class ofApp : public ofBaseApp {
 		void update();
 		void draw();
 		
-		// ~ ~ ~ ~ ~ ~ ~ 
+		int width, height;
 
 		string compname;
 		string host; // hostname;
