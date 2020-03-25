@@ -1,6 +1,2 @@
-ofxCv
-ofxOpenCv
 ofxOMXCamera
-ofxOMXPlayer
-ofxOsc
 ofxXmlSettings
