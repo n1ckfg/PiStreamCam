@@ -30,7 +30,7 @@ class ofApp : public ofBaseApp {
 		ofxOMXCameraSettings camSettings;
 
 	    SimpleIPVideoServer server;
-    	SimpleIPVideoServerSettings settings;
+    	SimpleIPVideoServerSettings streamSettings;
 
 		int camShutterSpeed; // 0 to 330000 in microseconds, default 0
 		int camSharpness; // -100 to 100, default 0

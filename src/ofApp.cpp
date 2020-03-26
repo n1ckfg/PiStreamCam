@@ -65,9 +65,8 @@ void ofApp::setup() {
     camSettings.shutterSpeed = camShutterSpeed;
     cam.setup(camSettings); 
 
-	SimpleIPVideoServerSettings settings;
-    settings.setPort(port);
-    settings.ipVideoRouteSettings.setMaxClientConnections(1); // default 5
+    streamSettings.setPort(port);
+    streamSettings.ipVideoRouteSettings.setMaxClientConnections(1); // default 5
     server.setup(settings);
     server.start();
 
