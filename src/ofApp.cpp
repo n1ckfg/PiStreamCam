@@ -7,7 +7,7 @@ using namespace ofxHTTP;
 void ofApp::setup() {
     settings.loadFile("settings.xml");
 
-    ofSetVerticalSync(false);
+    ofSetVerticalSync(true);
     ofHideCursor();
 
     framerate = settings.getValue("settings:framerate", 60);
