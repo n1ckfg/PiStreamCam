@@ -15,9 +15,6 @@ void ofApp::setup() {
     height = settings.getValue("settings:height", 120);
     ofSetFrameRate(framerate);
 
-    pixels.allocate(width, height, OF_IMAGE_COLOR);
-    tex.allocate(width, height,  GL_RGBA);
-
     host = settings.getValue("settings:host", "127.0.0.1");
     port = settings.getValue("settings:port", 7110);
 
@@ -52,7 +49,7 @@ void ofApp::setup() {
     camSettings.sensorWidth = width;
     camSettings.sensorHeight = height;
     camSettings.framerate = framerate;
-    camSettings.enableTexture = false;//true;
+    camSettings.enableTexture = true;
     camSettings.enablePixels = true;
     camSettings.autoISO = false;
     camSettings.autoShutter = false;
@@ -75,14 +72,14 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
 	if (cam.isFrameNew()) {
- 		pixels = cam.getPixels();
- 		tex.loadData(pixels, width, height, GL_RGBA);
- 		server.send(pixels);
+ 		server.send(cam.getPixels());
  	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	tex.draw(0, 0, ofGetWidth(), ofGetHeight());
+	if (cam.isFrameNew()) {
+		cam.draw(0, 0, ofGetWidth(), ofGetHeight());
+	}
 }
 

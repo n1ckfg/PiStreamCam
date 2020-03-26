@@ -44,6 +44,4 @@ class ofApp : public ofBaseApp {
 
 		int framerate;
 
-		ofPixels pixels;
-		ofTexture tex;
 };
