@@ -67,7 +67,7 @@ void ofApp::setup() {
 
     streamSettings.setPort(port);
     streamSettings.ipVideoRouteSettings.setMaxClientConnections(1); // default 5
-    server.setup(settings);
+    server.setup(streamSettings);
     server.start();
 
 }
