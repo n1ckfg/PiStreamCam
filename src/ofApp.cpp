@@ -64,6 +64,8 @@ void ofApp::setup() {
     server.setup(streamSettings);
     server.start();
 
+    // https://forum.openframeworks.cc/t/optimize-ofxcv-toof-fastest-way-to-render-cv-mats/15529
+    img.setImageType(OF_IMAGE_COLOR_ALPHA);
 }
 
 //--------------------------------------------------------------
