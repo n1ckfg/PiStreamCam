@@ -2,6 +2,8 @@
 
 using namespace glm;
 using namespace ofxHTTP;
+using namespace cv;
+using namespace ofxCv;
 
 //--------------------------------------------------------------
 void ofApp::setup() {
@@ -14,9 +16,6 @@ void ofApp::setup() {
     width = settings.getValue("settings:width", 160);
     height = settings.getValue("settings:height", 120);
     ofSetFrameRate(framerate);
-
-    pixels.allocate(width, height, OF_IMAGE_COLOR);
-    tex.allocate(width, height, GL_RGBA);
 
     host = settings.getValue("settings:host", "127.0.0.1");
     port = settings.getValue("settings:port", 7110);
@@ -40,6 +39,8 @@ void ofApp::setup() {
     }
     std::cout << compname << endl;  
 
+    cam.setup(width, height, false); // color/gray;
+
     // ~ ~ ~   cam settings   ~ ~ ~
     camSharpness = settings.getValue("settings:sharpness", 0);
     camContrast = settings.getValue("settings:contrast", 0);
@@ -49,21 +50,13 @@ void ofApp::setup() {
     camExposureCompensation = settings.getValue("settings:exposure_compensation", 0);
     camShutterSpeed = settings.getValue("settings:shutter_speed", 0);
 
-    camSettings.sensorWidth = width;
-    camSettings.sensorHeight = height;
-    camSettings.framerate = framerate;
-    camSettings.enableTexture = true;
-    camSettings.enablePixels = true;
-    camSettings.autoISO = false;
-    camSettings.autoShutter = false;
-    camSettings.brightness = camBrightness;
-    camSettings.sharpness = camSharpness;
-    camSettings.contrast = camContrast;
-    camSettings.ISO = camIso;
-    camSettings.exposurePreset = camExposureMode;
-    camSettings.evCompensation = camExposureCompensation;
-    camSettings.shutterSpeed = camShutterSpeed;
-    cam.setup(camSettings); 
+    cam.setSharpness(camSharpness);
+    cam.setContrast(camContrast);
+    cam.setBrightness(camBrightness);
+    cam.setISO(camIso);
+    cam.setExposureMode((MMAL_PARAM_EXPOSUREMODE_T)camExposureMode);
+    cam.setExposureCompensation(camExposureCompensation);
+    cam.setShutterSpeed(camShutterSpeed);
 
     streamSettings.setPort(port);
     streamSettings.ipVideoRouteSettings.setMaxClientConnections(1); // default 5
@@ -75,15 +68,15 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-	if (cam.isFrameNew()) {
-		pixels = cam.getPixels();
-		tex = cam.getTextureReference();
- 		server.send(pixels);
+    frame = cam.grab();
+
+    if (!frame.empty()) {		
+		server.send(toOf(frame).getPixels());
  	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	tex.draw(0, 0, ofGetWidth(), ofGetHeight());
+	frame.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
