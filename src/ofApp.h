@@ -3,6 +3,12 @@
 #include "ofMain.h"
 #include "ofxOMXVideoGrabber.h"
 #include "ofxXmlSettings.h"
+#include "ofxHTTP.h"
+#include "ofxIO.h"
+#include "ofxMediaType.h"
+#include "ofxNetworkUtils.h"
+#include "ofxPoco.h"
+#include "ofxSSLManager.h"
 
 using namespace glm;
 
