@@ -9,12 +9,12 @@ using namespace ofxCv;
 void ofApp::setup() {
     settings.loadFile("settings.xml");
 
-    ofSetVerticalSync(true);
+    ofSetVerticalSync(false);
     ofHideCursor();
 
     framerate = settings.getValue("settings:framerate", 60);
-    width = settings.getValue("settings:width", 160);
-    height = settings.getValue("settings:height", 120);
+    width = settings.getValue("settings:width", 640);
+    height = settings.getValue("settings:height", 480);
     ofSetFrameRate(framerate);
 
     host = settings.getValue("settings:host", "127.0.0.1");
@@ -39,7 +39,7 @@ void ofApp::setup() {
     }
     std::cout << compname << endl;  
 
-    cam.setup(width, height, false); // color/gray;
+    cam.setup(width, height, true); // color/gray;
 
     // ~ ~ ~   cam settings   ~ ~ ~
     camSharpness = settings.getValue("settings:sharpness", 0);
