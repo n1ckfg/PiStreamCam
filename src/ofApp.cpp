@@ -70,13 +70,14 @@ void ofApp::setup() {
 void ofApp::update() {
     frame = cam.grab();
 
-    if (!frame.empty()) {		
-		server.send(toOf(frame).getPixels());
+    if (!frame.empty()) {	
+        toOf(frame, img);	
+		server.send(img.getPixels());
  	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	frame.draw(0, 0, ofGetWidth(), ofGetHeight());
+	img.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 

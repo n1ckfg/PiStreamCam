@@ -36,7 +36,8 @@ class ofApp : public ofBaseApp {
 
 		ofxCvPiCam cam;
 		cv::Mat frame;
-
+		ofImage img;
+		
 		// for more camera settings, see:
 		// https://github.com/orgicus/ofxCvPiCam/blob/master/example-ofxCvPiCam-allSettings/src/testApp.cpp
 
