@@ -31,6 +31,9 @@ class ofApp : public ofBaseApp {
 
 		ofxOMXPhotoGrabber stillCam;
 		
+		SimpleIPVideoServer server;
+    	SimpleIPVideoServerSettings streamSettings;
+
 		ofxCvPiCam cam;
 		cv::Mat frame;
 
