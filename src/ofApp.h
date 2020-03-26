@@ -6,6 +6,7 @@
 #include "ofxHTTP.h"
 
 using namespace glm;
+using namespace ofxHTTP;
 
 class ofApp : public ofBaseApp {
 
@@ -28,6 +29,9 @@ class ofApp : public ofBaseApp {
 		ofxOMXVideoGrabber cam;
 		ofxOMXCameraSettings camSettings;
 
+	    SimpleIPVideoServer server;
+    	SimpleIPVideoServerSettings settings;
+
 		int camShutterSpeed; // 0 to 330000 in microseconds, default 0
 		int camSharpness; // -100 to 100, default 0
 		int camContrast; // -100 to 100, default 0
@@ -40,4 +44,6 @@ class ofApp : public ofBaseApp {
 
 		int framerate;
 
+		ofPixels pixels;
+		ofTexture tex;
 };

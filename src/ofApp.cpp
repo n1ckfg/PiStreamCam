@@ -1,6 +1,7 @@
 #include "ofApp.h"
 
 using namespace glm;
+using namespace ofxHTTP;
 
 //--------------------------------------------------------------
 void ofApp::setup() {
@@ -13,6 +14,9 @@ void ofApp::setup() {
     width = settings.getValue("settings:width", 160);
     height = settings.getValue("settings:height", 120);
     ofSetFrameRate(framerate);
+
+    pixels.allocate(width, height, OF_IMAGE_COLOR);
+    tex.allocate(width, height,  GL_RGBA);
 
     host = settings.getValue("settings:host", "127.0.0.1");
     port = settings.getValue("settings:port", 7110);
@@ -49,7 +53,7 @@ void ofApp::setup() {
     camSettings.sensorHeight = height;
     camSettings.framerate = framerate;
     camSettings.enableTexture = false;//true;
-    //camSettings.enablePixels = true;
+    camSettings.enablePixels = true;
     camSettings.autoISO = false;
     camSettings.autoShutter = false;
     camSettings.brightness = camBrightness;
@@ -61,15 +65,25 @@ void ofApp::setup() {
     camSettings.shutterSpeed = camShutterSpeed;
     cam.setup(camSettings); 
 
+	SimpleIPVideoServerSettings settings;
+    settings.setPort(port);
+    settings.ipVideoRouteSettings.setMaxClientConnections(1); // default 5
+    server.setup(settings);
+    server.start();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-
+	if (cam.isFrameNew()) {
+ 		pixels = cam.getPixels();
+ 		tex.loadData(pixels, settings.sensorWidth, settings.sensorHeight, GL_RGBA);
+ 		server.send(pixels);
+ 	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-
+	tex.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
