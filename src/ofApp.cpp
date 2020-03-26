@@ -15,6 +15,9 @@ void ofApp::setup() {
     height = settings.getValue("settings:height", 120);
     ofSetFrameRate(framerate);
 
+    pixels.allocate(width, height, OF_COLOR_IMAGE);
+    tex.allocate(width, height, GL_RGBA);
+
     host = settings.getValue("settings:host", "127.0.0.1");
     port = settings.getValue("settings:port", 7110);
 
@@ -64,6 +67,7 @@ void ofApp::setup() {
 
     streamSettings.setPort(port);
     streamSettings.ipVideoRouteSettings.setMaxClientConnections(1); // default 5
+    streamSettings.ipVideoRouteSettings.setMaxClientBitrate(1000); // default 5
     server.setup(streamSettings);
     server.start();
 
@@ -72,12 +76,14 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
 	if (cam.isFrameNew()) {
- 		server.send(cam.getPixels());
+		pixels = cam.getPixels();
+		tex = cam.getTexturePtr();
+ 		server.send(pixels);
  	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	cam.draw(0, 0, ofGetWidth(), ofGetHeight());
+	tex.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
