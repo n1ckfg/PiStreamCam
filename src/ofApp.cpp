@@ -76,7 +76,7 @@ void ofApp::setup() {
 void ofApp::update() {
 	if (cam.isFrameNew()) {
  		pixels = cam.getPixels();
- 		tex.loadData(pixels, settings.sensorWidth, settings.sensorHeight, GL_RGBA);
+ 		tex.loadData(pixels, width, height, GL_RGBA);
  		server.send(pixels);
  	}
 }
