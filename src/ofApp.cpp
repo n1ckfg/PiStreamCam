@@ -78,8 +78,6 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	if (cam.isFrameNew()) {
-		cam.draw(0, 0, ofGetWidth(), ofGetHeight());
-	}
+	cam.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
