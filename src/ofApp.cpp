@@ -72,7 +72,7 @@ void ofApp::update() {
     frame = cam.grab();
 
     if (!frame.empty()) {	
-        toOf(frame, img);	
+        toOf(frame, img.getPixelsRef());	
 		server.send(img.getPixels());
  	}
 }
