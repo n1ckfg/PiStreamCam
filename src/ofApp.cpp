@@ -79,7 +79,7 @@ void ofApp::setup() {
 void ofApp::update() {
     if (stillCam.isFrameNew()) {
         img.grabScreen(0, 0, width, height);
-        server.send(stillCam.getRawPixels());
+        server.send(stillCam.getPixels().getData());
     }
 }
 
