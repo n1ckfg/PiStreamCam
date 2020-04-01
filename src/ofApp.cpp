@@ -58,9 +58,15 @@ void ofApp::setup() {
     cam.setExposureCompensation(camExposureCompensation);
     cam.setShutterSpeed(camShutterSpeed);
 
+    // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
+    // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
     streamSettings.setPort(port);
     streamSettings.ipVideoRouteSettings.setMaxClientConnections(1); // default 5
-    streamSettings.ipVideoRouteSettings.setMaxClientBitRate(1000); // default 5
+    streamSettings.ipVideoRouteSettings.setMaxClientBitRate(512); // default 1024
+    streamSettings.ipVideoRouteSettings.setMaxClientFrameRate(30); // default 30
+    streamSettings.ipVideoRouteSettings.setMaxClientQueueSize(10); // default 10
+    streamSettings.ipVideoRouteSettings.setMaxStreamWidth(640); // default 1920
+    streamSettings.ipVideoRouteSettings.setMaxStreamHeight(480); // default 1080
     server.setup(streamSettings);
     server.start();
 
