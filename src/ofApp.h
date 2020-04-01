@@ -31,7 +31,6 @@ class ofApp : public ofBaseApp {
 
 		ofxOMXPhotoGrabber stillCam;
  	    ofxOMXCameraSettings stillCamSettings;
-	    void onTakePhotoComplete(string fileName) override;
 
 		SimpleIPVideoServer server;
     	SimpleIPVideoServerSettings streamSettings;

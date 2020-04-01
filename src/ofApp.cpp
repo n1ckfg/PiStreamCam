@@ -73,6 +73,7 @@ void ofApp::setup() {
     stillCamSettings.burstModeEnabled = true;
     stillCamSettings.photoGrabberListener = this;
     stillCam.setup(stillCamSettings);
+    stillCam.setJPEGCompression(100);
 
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
@@ -104,16 +105,3 @@ void ofApp::draw() {
 	img.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
-void ofApp::onTakePhotoComplete(string fileName) {
-    ofLog() << "onTakePhotoComplete fileName: " << fileName;
-    
-    int currentCompression = stillCam.settings.stillQuality;
-    
-    if(currentCompression-1 > 0) {
-        currentCompression--;
-    } else {
-        currentCompression = 100;
-    }
-    stillCam.setImageFilter(filterCollection.getNextFilter());
-    stillCam.setJPEGCompression(currentCompression);   
-}
