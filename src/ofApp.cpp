@@ -1,8 +1,5 @@
 #include "ofApp.h"
 
-using namespace glm;
-using namespace ofxHTTP;
-
 //--------------------------------------------------------------
 void ofApp::setup() {
     settings.loadFile("settings.xml");
@@ -60,9 +57,9 @@ void ofApp::setup() {
     stillCamSettings.stillPreviewHeight = height;
     stillCamSettings.enablePixels = true;
     stillCamSettings.enableTexture = true;
-    //stillCamSettings.photoGrabberListener = this; //not saved in JSON file
+    stillCamSettings.photoGrabberListener = this; //not saved in JSON file
     stillCam.setup(stillCamSettings);
-
+    
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
     streamSettings.setPort(port);
@@ -80,16 +77,16 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    //
+    if (stillCam.isFrameNew()) {
+        img.grabScreen(0, 0, width, height);
+        server.send(img.getPixels());
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-    stillCam.draw(0, 0);
-    
-    if (stillCam.isFrameNew()) {
-        img.grabScreen(0, 0, width, height);
-        server.send(img.getPixels());
+    if (stillCam.isTextureEnabled()) {
+        stillCam.draw(0, 0);
     }
 
     if (firstRun) {

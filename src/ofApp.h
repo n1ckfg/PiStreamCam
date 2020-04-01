@@ -5,10 +5,7 @@
 #include "ofxXmlSettings.h"
 #include "ofxHTTP.h"
 
-using namespace glm;
-using namespace ofxHTTP;
-
-class ofApp : public ofBaseApp {
+class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 
 	public:	
 		void setup();
@@ -31,8 +28,8 @@ class ofApp : public ofBaseApp {
  	    ofxOMXCameraSettings stillCamSettings;
 		ofImage img;
 
-		SimpleIPVideoServer server;
-    	SimpleIPVideoServerSettings streamSettings;
+		ofxHTTP::SimpleIPVideoServer server;
+    	ofxHTTP::SimpleIPVideoServerSettings streamSettings;
 
 		int framerate;
 
