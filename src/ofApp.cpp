@@ -77,7 +77,7 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    server.send(stillCam.of_pixels);
+    server.send(stillCam.getPixels());
 }
 
 //--------------------------------------------------------------
