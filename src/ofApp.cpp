@@ -40,7 +40,7 @@ void ofApp::setup() {
     ofFile settingsFile("settings.json");
     if(settingsFile.exists()) {
         ofBuffer jsonBuffer = ofBufferFromFile("settings.json");
-        cameraSettings.parseJSON(jsonBuffer.getText());
+        stillCamSettings.parseJSON(jsonBuffer.getText());
     } else {
         stillCamSettings.sensorWidth = 2592;
         stillCamSettings.sensorHeight = 1944;
