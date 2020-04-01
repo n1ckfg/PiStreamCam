@@ -2,8 +2,6 @@
 
 using namespace glm;
 using namespace ofxHTTP;
-using namespace cv;
-using namespace ofxCv;
 
 //--------------------------------------------------------------
 void ofApp::setup() {
