@@ -71,7 +71,6 @@ void ofApp::setup() {
     stillCamSettings.stillQuality = 100;
     stillCamSettings.enableStillPreview = true;
     stillCamSettings.burstModeEnabled = true;
-    stillCamSettings.photoGrabberListener = this;
     stillCam.setup(stillCamSettings);
     stillCam.setJPEGCompression(100);
 
