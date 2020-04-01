@@ -79,8 +79,7 @@ void ofApp::setup() {
 void ofApp::update() {
     if (stillCam.isFrameNew()) {
         img.grabScreen(0, 0, width, height);
-        cout << stillCam.getPixels().getHeight() << endl;
-        server.send(stillCam.getPixels());
+        server.send(stillCam.getRawPixels());
     }
 }
 
