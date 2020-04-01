@@ -86,7 +86,7 @@ void ofApp::setup() {
     server.setup(streamSettings);
     server.start();
 
-    img.allocate(width, height, OF_IMAGE_COLOR);
+    //img.allocate(width, height, OF_IMAGE_COLOR);
 }
 
 //--------------------------------------------------------------
@@ -103,11 +103,13 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	img.draw(0, 0, ofGetWidth(), ofGetHeight());
+	//img.draw(0, 0, ofGetWidth(), ofGetHeight());
 
     if (firstRun) {
-        stillCam.takePhoto();
+        stillCam.takePhoto(10);
         firstRun = false;
     }
+
+    stillCam.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
