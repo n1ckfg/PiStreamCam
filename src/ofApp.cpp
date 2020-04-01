@@ -77,9 +77,9 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    if (stillCam.isFrameNew()) {
+    if (stillCam.isFrameNew() && stillCam) {
         img.grabScreen(0, 0, width, height);
-        server.send(img.getPixels());
+        server.send(stillCam.getPixels());
     }
 }
 
@@ -90,7 +90,7 @@ void ofApp::draw() {
     }
 
     if (firstRun) {
-        stillCam.takePhoto(10);
+        stillCam.takePhoto();
         firstRun = false;
     }
 }
