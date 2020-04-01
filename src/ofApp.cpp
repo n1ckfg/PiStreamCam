@@ -77,7 +77,7 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    if (stillCam.isFrameNew() && stillCam) {
+    if (stillCam.isFrameNew()) {
         img.grabScreen(0, 0, width, height);
         server.send(stillCam.getPixels());
     }
