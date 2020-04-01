@@ -75,19 +75,18 @@ void ofApp::setup() {
     server.setup(streamSettings);
     server.start();
 
-    //img.allocate(width, height, OF_IMAGE_COLOR);
     pixels.allocate(width, height, OF_IMAGE_COLOR);
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    server.send(stillCam.getPixels());
+    if (stillCam.isFrameNew()) {
+        server.send(stillCam.getPixels());
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	//img.draw(0, 0, ofGetWidth(), ofGetHeight());
-
     stillCam.draw(0, 0, ofGetWidth(), ofGetHeight());
 
     if (firstRun) {
