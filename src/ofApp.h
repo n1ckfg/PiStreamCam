@@ -33,4 +33,11 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 
 		int framerate;
 
+	    vector<string>photoFiles;
+	    void onTakePhotoComplete(string fileName) override;
+	    void onPhotoGrabberEngineStart()override 
+	    {
+	        
+	    };
+	    
 };

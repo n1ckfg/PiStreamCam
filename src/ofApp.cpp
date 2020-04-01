@@ -95,3 +95,6 @@ void ofApp::draw() {
     }
 }
 
+void ofApp::onTakePhotoComplete(string fileName) {
+    ofLog() << "onTakePhotoComplete fileName: " << fileName;  
+}
