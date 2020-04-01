@@ -58,6 +58,22 @@ void ofApp::setup() {
     cam.setExposureCompensation(camExposureCompensation);
     cam.setShutterSpeed(camShutterSpeed);
 
+    // https://github.com/jvcleave/ofxOMXCamera/blob/master/example-still/src/ofApp.cpp
+    stillCamSettings.sensorWidth = 2592;
+    stillCamSettings.sensorHeight = 1944;    
+    stillCamSettings.stillPreviewWidth = 1280;
+    stillCamSettings.stillPreviewHeight = 720;
+    //stillCamSettings.stillPreviewWidth = stillCamSettings.sensorWidth;
+    //stillCamSettings.stillPreviewHeight = stillCamSettings.height;
+    stillCamSettings.saturation = -100;
+    stillCamSettings.sharpness = 100;
+    //stillCamSettings.brightness = 75;
+    stillCamSettings.stillQuality = 100;
+    stillCamSettings.enableStillPreview = true;
+    stillCamSettings.burstModeEnabled = true;
+    stillCamSettings.photoGrabberListener = this;
+    stillCam.setup(stillCamSettings);
+
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
     streamSettings.setPort(port);
@@ -88,3 +104,16 @@ void ofApp::draw() {
 	img.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
+void ofApp::onTakePhotoComplete(string fileName) {
+    ofLog() << "onTakePhotoComplete fileName: " << fileName;
+    
+    int currentCompression = stillCam.settings.stillQuality;
+    
+    if(currentCompression-1 > 0) {
+        currentCompression--;
+    } else {
+        currentCompression = 100;
+    }
+    stillCam.setImageFilter(filterCollection.getNextFilter());
+    stillCam.setJPEGCompression(currentCompression);   
+}
