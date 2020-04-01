@@ -27,18 +27,17 @@ void ofApp::setup() {
     if (file) { // use existing file if it's there
         buff = file.readToBuffer();
         compname = buff.getText();
-    }
-    else { // otherwise make a new one
+    } else { // otherwise make a new one
         compname += "_" + ofGetTimestampString("%y%m%d%H%M%S%i");
         ofStringReplace(compname, "\n", "");
         ofStringReplace(compname, "\r", "");
         buff.set(compname.c_str(), compname.size());
         ofBufferToFile("compname.txt", buff);
     }
-    std::cout << compname << endl;  
+    cout << compname << endl;  
 
     ofFile settingsFile("settings.json");
-    if(settingsFile.exists()) {
+    if (settingsFile.exists()) {
         ofBuffer jsonBuffer = ofBufferFromFile("settings.json");
         stillCamSettings.parseJSON(jsonBuffer.getText());
     } else {
@@ -60,7 +59,7 @@ void ofApp::setup() {
     }
     
     
-    stillCamSettings.photoGrabberListener = this; //not saved in JSON file
+    //stillCamSettings.photoGrabberListener = this; //not saved in JSON file
     stillCam.setup(stillCamSettings);
 
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
