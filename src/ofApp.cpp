@@ -78,21 +78,21 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
     if (stillCam.isFrameNew()) {
-        pixels.setFromExternalPixels(stillCam.getPixels().getData(), width, height, 4);
+        pixels.setFromExternalPixels(stillCam.getRawPixels(), width, height, 4);
         server.send(pixels);
+
+        if (firstRun) {
+            stillCam.takePhoto();
+            firstRun = false;
+        }
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-    if (stillCam.isTextureEnabled()) {
+    if (debug && stillCam.isTextureEnabled()) {
         stillCam.draw(0, 0);
-    }
-
-    if (firstRun) {
-        stillCam.takePhoto();
-        firstRun = false;
-    }
+    } 
 }
 
 void ofApp::onTakePhotoComplete(string fileName) {
