@@ -39,7 +39,7 @@ void ofApp::setup() {
     }
     std::cout << compname << endl;  
 
-    cam.setup(width, height, (bool) settings.getValue("settings:video_color", 1)); // color/gray;
+    //cam.setup(width, height, (bool) settings.getValue("settings:video_color", 1)); // color/gray;
 
     // ~ ~ ~   cam settings   ~ ~ ~
     camSharpness = settings.getValue("settings:sharpness", 0);
@@ -91,12 +91,14 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
+    /*
     frame = cam.grab();
 
     if (!frame.empty()) {	
         toOf(frame, img.getPixelsRef());	
 		server.send(img.getPixels());
  	}
+    */
 }
 
 //--------------------------------------------------------------
