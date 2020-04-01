@@ -78,7 +78,7 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
     if (stillCam.isFrameNew()) {
-        pixels.setFromExternalPixels(stillCam.getPixels().getData(), width, height, 3);
+        pixels.setFromExternalPixels(stillCam.getPixels().getData(), width, height, 4);
         server.send(pixels);
     }
 }
