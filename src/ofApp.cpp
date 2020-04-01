@@ -85,10 +85,10 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-    stillCam.draw(0, 0, ofGetWidth(), ofGetHeight());
+    stillCam.draw(0, 0);
     
     if (stillCam.isFrameNew()) {
-        img.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
+        img.grabScreen(0, 0, width, height);
         server.send(img.getPixels());
     }
 
