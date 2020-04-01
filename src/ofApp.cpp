@@ -97,12 +97,15 @@ void ofApp::update() {
         toOf(frame, img.getPixelsRef());	
 		server.send(img.getPixels());
  	}
-
-    stillCam.takePhoto();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 	img.draw(0, 0, ofGetWidth(), ofGetHeight());
+
+    if (firstRun) {
+        stillCam.takePhoto();
+        firstRun = false;
+    }
 }
 

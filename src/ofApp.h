@@ -19,7 +19,8 @@ class ofApp : public ofBaseApp {
 		void draw();
 		
 		int width, height;
-
+		bool firstRun = true;
+		
 		string compname;
 		string host; // hostname;
 		int port; // default 7110;
