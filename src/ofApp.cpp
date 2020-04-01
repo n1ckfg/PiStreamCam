@@ -42,16 +42,12 @@ void ofApp::setup() {
         stillCamSettings.parseJSON(jsonBuffer.getText());
     } else {
         stillCamSettings.sensorWidth = 2592;
-        stillCamSettings.sensorHeight = 1944;
-        
-        stillCamSettings.stillPreviewWidth = 1280;
-        stillCamSettings.stillPreviewHeight = 720;
-        
-        //stillCamSettings.stillPreviewWidth = cameraSettings.sensorWidth;
-        //stillCamSettings.stillPreviewHeight = cameraSettings.height;
+        stillCamSettings.sensorHeight = 1944;       
+        stillCamSettings.stillPreviewWidth = width;
+        stillCamSettings.stillPreviewHeight = height;        
         stillCamSettings.saturation = -100;
         stillCamSettings.sharpness = 100;
-        //stillCamSettings.brightness = 75;
+        stillCamSettings.brightness = 75;
         stillCamSettings.stillQuality = 100;
         stillCamSettings.enableStillPreview = true;
         stillCamSettings.burstModeEnabled = true;
@@ -59,6 +55,8 @@ void ofApp::setup() {
     }
     
     
+    stillCamSettings.stillPreviewWidth = width;
+    stillCamSettings.stillPreviewHeight = height;
     //stillCamSettings.photoGrabberListener = this; //not saved in JSON file
     stillCam.setup(stillCamSettings);
 
@@ -79,7 +77,7 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    server.send(stillCam.getPixels());
+    server.send(stillCam.of_pixels);
 }
 
 //--------------------------------------------------------------
