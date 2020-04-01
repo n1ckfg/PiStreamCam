@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <settings>
-    <host>Allosaurus.local</host>
+    <host>BrazilV.local</host>
     <port>7110</port>
-    <framerate>90</framerate>
-    <!-- * -->
+    <framerate>60</framerate>
+    <width>640</width>
+    <height>480</height>
     <debug>1</debug>
-    <brightest_pixel>0</brightest_pixel>
-    <blobs>0</blobs>
-    <contours>1</contours>
-    <video>0</video>
-    <!-- * -->
-    <video_quality>4</video_quality>
     <video_color>0</video_color>
-    <contour_slices>10</contour_slices>
-    <threshold>30</threshold>
+    <!-- * -->
     <sharpness>50</sharpness>
 	<contrast>0</contrast>
 	<brightness>50</brightness>
@@ -21,4 +15,9 @@
 	<exposure_mode>0</exposure_mode>
     <exposure_compensation>0</exposure_compensation>
 	<shutter_speed>100000</shutter_speed>
+    <!-- * -->
+    <max_stream_connections>1</max_stream_connections>
+    <max_stream_bitrate>512</max_stream_bitrate>
+    <max_stream_framerate>30</max_stream_framerate>
+    <max_stream_queue>10</max_stream_queue>
 </settings>

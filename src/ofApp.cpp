@@ -20,7 +20,7 @@ void ofApp::setup() {
     host = settings.getValue("settings:host", "127.0.0.1");
     port = settings.getValue("settings:port", 7110);
 
-    debug = (bool)settings.getValue("settings:debug", 1);
+    debug = (bool) settings.getValue("settings:debug", 1);
    
     // ~ ~ ~   get a persistent name for this computer   ~ ~ ~
     compname = "RPi";
@@ -39,7 +39,7 @@ void ofApp::setup() {
     }
     std::cout << compname << endl;  
 
-    cam.setup(width, height, true); // color/gray;
+    cam.setup(width, height, (bool) settings.getValue("settings:video_color", 1)); // color/gray;
 
     // ~ ~ ~   cam settings   ~ ~ ~
     camSharpness = settings.getValue("settings:sharpness", 0);
@@ -61,12 +61,12 @@ void ofApp::setup() {
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
     streamSettings.setPort(port);
-    streamSettings.ipVideoRouteSettings.setMaxClientConnections(1); // default 5
-    streamSettings.ipVideoRouteSettings.setMaxClientBitRate(512); // default 1024
-    streamSettings.ipVideoRouteSettings.setMaxClientFrameRate(30); // default 30
-    streamSettings.ipVideoRouteSettings.setMaxClientQueueSize(10); // default 10
-    streamSettings.ipVideoRouteSettings.setMaxStreamWidth(640); // default 1920
-    streamSettings.ipVideoRouteSettings.setMaxStreamHeight(480); // default 1080
+    streamSettings.ipVideoRouteSettings.setMaxClientConnections(settings.getValue("settings:max_stream_connections", 1)); // default 5
+    streamSettings.ipVideoRouteSettings.setMaxClientBitRate(settings.getValue("settings:max_stream_bitrate", 512)); // default 1024
+    streamSettings.ipVideoRouteSettings.setMaxClientFrameRate(settings.getValue("settings:max_stream_framerate", 30)); // default 30
+    streamSettings.ipVideoRouteSettings.setMaxClientQueueSize(settings.getValue("settings:max_stream_queue", 10)); // default 10
+    streamSettings.ipVideoRouteSettings.setMaxStreamWidth(width); // default 1920
+    streamSettings.ipVideoRouteSettings.setMaxStreamHeight(height); // default 1080
     server.setup(streamSettings);
     server.start();
 
