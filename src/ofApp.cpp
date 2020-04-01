@@ -81,7 +81,7 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
     if (stillCam.isFrameNew()) {
-        stillCam.getTexture().readToPixels(pixels);
+        stillCam.getTextureReference().readToPixels(pixels);
         server.send(pixels);
     }
 }
