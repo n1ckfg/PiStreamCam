@@ -27,7 +27,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 
 		ofxOMXPhotoGrabber stillCam;
  	    ofxOMXCameraSettings stillCamSettings;
-		ofImage img;
+		ofPixels pixels;
 
 		ofxHTTP::SimpleIPVideoServer server;
     	ofxHTTP::SimpleIPVideoServerSettings streamSettings;

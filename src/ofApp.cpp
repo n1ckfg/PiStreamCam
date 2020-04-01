@@ -72,14 +72,14 @@ void ofApp::setup() {
     server.setup(streamSettings);
     server.start();
 
-    img.allocate(width, height, OF_IMAGE_COLOR);
+    pixels.allocate(width, height, OF_IMAGE_COLOR);
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
     if (stillCam.isFrameNew()) {
-        img.grabScreen(0, 0, width, height);
-        server.send(stillCam.getPixels().getData());
+        pixels.setFromExternalPixels(stillCam.getPixels().getData(), width, height, 3);
+        server.send(pixels);
     }
 }
 
