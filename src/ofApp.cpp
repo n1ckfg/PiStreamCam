@@ -97,6 +97,8 @@ void ofApp::update() {
         toOf(frame, img.getPixelsRef());	
 		server.send(img.getPixels());
  	}
+
+    stillCam.takePhoto();
 }
 
 //--------------------------------------------------------------
