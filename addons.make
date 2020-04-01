@@ -1,6 +1,3 @@
-ofxOpenCv
-ofxCv
-ofxCvPiCam
 ofxOMXCamera
 ofxXmlSettings
 ofxHTTP

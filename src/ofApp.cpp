@@ -39,40 +39,31 @@ void ofApp::setup() {
     }
     std::cout << compname << endl;  
 
-    //cam.setup(width, height, (bool) settings.getValue("settings:video_color", 1)); // color/gray;
-
-    // ~ ~ ~   cam settings   ~ ~ ~
-    camSharpness = settings.getValue("settings:sharpness", 0);
-    camContrast = settings.getValue("settings:contrast", 0);
-    camBrightness = settings.getValue("settings:brightness", 50);
-    camIso = settings.getValue("settings:iso", 300);
-    camExposureMode = settings.getValue("settings:exposure_mode", 0);
-    camExposureCompensation = settings.getValue("settings:exposure_compensation", 0);
-    camShutterSpeed = settings.getValue("settings:shutter_speed", 0);
-
-    cam.setSharpness(camSharpness);
-    cam.setContrast(camContrast);
-    cam.setBrightness(camBrightness);
-    cam.setISO(camIso);
-    cam.setExposureMode((MMAL_PARAM_EXPOSUREMODE_T)camExposureMode);
-    cam.setExposureCompensation(camExposureCompensation);
-    cam.setShutterSpeed(camShutterSpeed);
-
-    // https://github.com/jvcleave/ofxOMXCamera/blob/master/example-still/src/ofApp.cpp
-    stillCamSettings.sensorWidth = 2592;
-    stillCamSettings.sensorHeight = 1944;    
-    stillCamSettings.stillPreviewWidth = 1280;
-    stillCamSettings.stillPreviewHeight = 720;
-    //stillCamSettings.stillPreviewWidth = stillCamSettings.sensorWidth;
-    //stillCamSettings.stillPreviewHeight = stillCamSettings.height;
-    stillCamSettings.saturation = -100;
-    stillCamSettings.sharpness = 100;
-    //stillCamSettings.brightness = 75;
-    stillCamSettings.stillQuality = 100;
-    stillCamSettings.enableStillPreview = true;
-    stillCamSettings.burstModeEnabled = true;
+    ofFile settingsFile("settings.json");
+    if(settingsFile.exists()) {
+        ofBuffer jsonBuffer = ofBufferFromFile("settings.json");
+        cameraSettings.parseJSON(jsonBuffer.getText());
+    } else {
+        stillCamSettings.sensorWidth = 2592;
+        stillCamSettings.sensorHeight = 1944;
+        
+        stillCamSettings.stillPreviewWidth = 1280;
+        stillCamSettings.stillPreviewHeight = 720;
+        
+        //stillCamSettings.stillPreviewWidth = cameraSettings.sensorWidth;
+        //stillCamSettings.stillPreviewHeight = cameraSettings.height;
+        stillCamSettings.saturation = -100;
+        stillCamSettings.sharpness = 100;
+        //stillCamSettings.brightness = 75;
+        stillCamSettings.stillQuality = 100;
+        stillCamSettings.enableStillPreview = true;
+        stillCamSettings.burstModeEnabled = true;
+        stillCamSettings.saveJSONFile();
+    }
+    
+    
+    stillCamSettings.photoGrabberListener = this; //not saved in JSON file
     stillCam.setup(stillCamSettings);
-    stillCam.setJPEGCompression(100);
 
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
@@ -105,11 +96,11 @@ void ofApp::update() {
 void ofApp::draw() {
 	//img.draw(0, 0, ofGetWidth(), ofGetHeight());
 
+    stillCam.draw(0, 0, ofGetWidth(), ofGetHeight());
+
     if (firstRun) {
         stillCam.takePhoto(10);
         firstRun = false;
     }
-
-    stillCam.draw(0, 0, ofGetWidth(), ofGetHeight());
 }
 
