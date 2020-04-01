@@ -81,7 +81,8 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update() {
     if (stillCam.isFrameNew()) {
-        server.send(stillCam.getPixels());
+        stillCam.readToPixels(pixels);
+        server.send(pixels);
     }
 }
 
