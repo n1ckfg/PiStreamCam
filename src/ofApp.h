@@ -29,7 +29,7 @@ class ofApp : public ofBaseApp {
 
 		ofxOMXPhotoGrabber stillCam;
  	    ofxOMXCameraSettings stillCamSettings;
-		ofPixels pixels;
+		ofImage img;
 
 		SimpleIPVideoServer server;
     	SimpleIPVideoServerSettings streamSettings;
