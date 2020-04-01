@@ -71,8 +71,8 @@ void ofApp::setup() {
     stillCamSettings.stillQuality = 100;
     stillCamSettings.enableStillPreview = true;
     stillCamSettings.burstModeEnabled = true;
-    stillCam.setup(stillCamSettings);
-    stillCam.setJPEGCompression(100);
+    //stillCam.setup(stillCamSettings);
+    //stillCam.setJPEGCompression(100);
 
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
