@@ -73,11 +73,14 @@ void ofApp::setup() {
     server.start();
 
     //img.allocate(width, height, OF_IMAGE_COLOR);
+    pixels.allocate(width, height, OF_IMAGE_COLOR);
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    server.send(stillCam.getPixels());
+    pixels = stillCam.getPixels();
+    cout << pixels.getWidth() << " " << pixels.getHeight() << endl;
+    server.send(pixels);
 }
 
 //--------------------------------------------------------------
