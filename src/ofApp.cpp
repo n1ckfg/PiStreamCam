@@ -79,14 +79,7 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    /*
-    frame = cam.grab();
-
-    if (!frame.empty()) {	
-        toOf(frame, img.getPixelsRef());	
-		server.send(img.getPixels());
- 	}
-    */
+    server.send(stillCam.getPixels());
 }
 
 //--------------------------------------------------------------
