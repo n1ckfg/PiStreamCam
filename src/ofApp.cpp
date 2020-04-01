@@ -79,6 +79,7 @@ void ofApp::setup() {
 void ofApp::update() {
     if (stillCam.isFrameNew()) {
         img.grabScreen(0, 0, width, height);
+        cout << stillCam.getPixels().getHeight() << endl;
         server.send(stillCam.getPixels());
     }
 }
@@ -97,4 +98,5 @@ void ofApp::draw() {
 
 void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
+    stillCam.setJPEGCompression(100);
 }

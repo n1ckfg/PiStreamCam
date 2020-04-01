@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofAppEGLWindow.h"
 #include "ofxOMXPhotoGrabber.h"
 #include "ofxXmlSettings.h"
 #include "ofxHTTP.h"
@@ -39,5 +40,5 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 	    {
 	        
 	    };
-	    
+
 };
