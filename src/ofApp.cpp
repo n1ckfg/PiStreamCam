@@ -54,9 +54,12 @@ void ofApp::setup() {
         stillCamSettings.saveJSONFile();
     }
     
-    
+    // override settings
+    // https://github.com/jvcleave/ofxOMXCamera/blob/master/src/ofxOMXCameraSettings.h
     stillCamSettings.stillPreviewWidth = width;
     stillCamSettings.stillPreviewHeight = height;
+    stillCamSettings.enablePixels = true;
+    stillCamSettings.enableTexture = true;
     //stillCamSettings.photoGrabberListener = this; //not saved in JSON file
     stillCam.setup(stillCamSettings);
 
@@ -78,9 +81,7 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    pixels = stillCam.getPixels();
-    cout << pixels.getWidth() << " " << pixels.getHeight() << endl;
-    server.send(pixels);
+    server.send(stillCam.getPixels());
 }
 
 //--------------------------------------------------------------
