@@ -8,7 +8,7 @@ function main() {
 	hostname = loadFile("hostname");
 
 	liveView = document.getElementById("live_view");
-	liveView.src = "http://" + hostName + ":" + port;
+	liveView.src = "http://" + hostName + ".local:" + port;
 
 	alert(hostname);
 }
