@@ -123,8 +123,11 @@ void ofApp::onTakePhotoComplete(string fileName) {
         //photoIndex = buff.getText();
     //} else { // otherwise make a new one
     string shortName = ofFilePath::getFileName(fileName);
+    photoIndex = "<!DOCTYPE html>\n";
+    photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"0\"></head><body>\n";
     photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
-    
+    photoIndex += "</body></html>\n";
+
     buff.set(photoIndex.c_str(), photoIndex.size());
     ofBufferToFile(photoIndexFileName, buff);
     //}
