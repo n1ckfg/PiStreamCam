@@ -113,24 +113,24 @@ void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
 
     string photoIndexFileName = "DocumentRoot/result.html";
-    ofFile photoIndexFile;
-    string photoIndex;
     ofBuffer buff;
+    ofFile photoIndexFile;
     photoIndexFile.open(ofToDataPath(photoIndexFileName), ofFile::ReadWrite, false);
-    
-    //if (photoIndexFile) { // use existing file if it's there
-        //buff = photoIndexFile.readToBuffer();
-        //photoIndex = buff.getText();
-    //} else { // otherwise make a new one
-    string shortName = ofFilePath::getFileName(fileName);
-    photoIndex = "<!DOCTYPE html>\n";
+
+    string photoIndex = "<!DOCTYPE html>\n";
     photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"1\"></head><body>\n";
-    photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
+    
+    if (photoIndexFile) { // use existing file if it's there
+        string shortName = ofFilePath::getFileName(fileName);
+        photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
+    } else { // otherwise make a new one
+        photoIndex += "READY\n";
+    }
+
     photoIndex += "</body></html>\n";
 
     buff.set(photoIndex.c_str(), photoIndex.size());
     ofBufferToFile(photoIndexFileName, buff);
-    //}
 }
 
 void ofApp::onHTTPPostEvent(ofxHTTP::PostEventArgs& args) {
@@ -169,3 +169,4 @@ void ofApp::onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& args) {
     ofLogNotice("ofApp::onHTTPUploadEvent") <<  "     fileType: " << args.getFileType().toString();
     ofLogNotice("ofApp::onHTTPUploadEvent") << "# bytes xfer'd: " << args.getNumBytesTransferred();
 }
+

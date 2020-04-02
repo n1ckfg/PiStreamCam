@@ -14,7 +14,6 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 		void draw();
 		
 		int width, height;
-		bool firstRun = true;
 		
 		string compname;
 		string host; // hostname;
@@ -45,4 +44,5 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 	    void onHTTPPostEvent(ofxHTTP::PostEventArgs& evt);
 	    void onHTTPFormEvent(ofxHTTP::PostFormEventArgs& evt);
 	    void onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& evt);
+
 };
