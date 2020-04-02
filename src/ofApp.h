@@ -45,4 +45,6 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 	    void onHTTPFormEvent(ofxHTTP::PostFormEventArgs& evt);
 	    void onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& evt);
 
+	    void createResultHtml(string filename);
+
 };

@@ -112,30 +112,13 @@ void ofApp::draw() {
 void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
 
-    string photoIndexFileName = "DocumentRoot/result.html";
-    ofBuffer buff;
-    ofFile photoIndexFile;
-    photoIndexFile.open(ofToDataPath(photoIndexFileName), ofFile::ReadWrite, false);
-
-    string photoIndex = "<!DOCTYPE html>\n";
-    photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"1\"></head><body>\n";
-    
-    if (photoIndexFile) { // use existing file if it's there
-        string shortName = ofFilePath::getFileName(fileName);
-        photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
-    } else { // otherwise make a new one
-        photoIndex += "READY\n";
-    }
-
-    photoIndex += "</body></html>\n";
-
-    buff.set(photoIndex.c_str(), photoIndex.size());
-    ofBufferToFile(photoIndexFileName, buff);
+    createResultHtml(fileName);
 }
 
 void ofApp::onHTTPPostEvent(ofxHTTP::PostEventArgs& args) {
     ofLogNotice("ofApp::onHTTPPostEvent") << "Data: " << args.getBuffer().getText();
     cam.takePhoto();
+    createResultHtml("none");
 }
 
 
@@ -143,6 +126,7 @@ void ofApp::onHTTPFormEvent(ofxHTTP::PostFormEventArgs& args) {
     ofLogNotice("ofApp::onHTTPFormEvent") << "";
     ofxHTTP::HTTPUtils::dumpNameValueCollection(args.getForm(), ofGetLogLevel());
     cam.takePhoto();
+    createResultHtml("none");
 }
 
 
@@ -170,3 +154,25 @@ void ofApp::onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& args) {
     ofLogNotice("ofApp::onHTTPUploadEvent") << "# bytes xfer'd: " << args.getNumBytesTransferred();
 }
 
+void ofApp::createResultHtml(string filename) {
+    string photoIndexFileName = "DocumentRoot/result.html";
+    ofBuffer buff;
+    ofFile photoIndexFile;
+    photoIndexFile.open(ofToDataPath(photoIndexFileName), ofFile::ReadWrite, false);
+
+    string photoIndex = "<!DOCTYPE html>\n";
+    
+    if (filename == "none") { // use existing file if it's there
+        photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"0\"></head><body>\n";
+        photoIndex += "READY\n";
+    } else { // otherwise make a new one
+        photoIndex += "<html><head></head><body>\n";
+        string shortName = ofFilePath::getFileName(fileName);
+        photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
+    }
+
+    photoIndex += "</body></html>\n";
+
+    buff.set(photoIndex.c_str(), photoIndex.size());
+    ofBufferToFile(photoIndexFileName, buff);
+}
