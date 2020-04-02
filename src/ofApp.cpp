@@ -80,7 +80,7 @@ void ofApp::setup() {
 
     postSettings.setPort(port);
     postServer.setup(postSettings);
-    postServer.postRoute().setPostRoute("result.html");
+    postServer.postRoute().PostRoute("result.html");
     postServer.postRoute().registerPostEvents(this);
     postServer.start();
 
