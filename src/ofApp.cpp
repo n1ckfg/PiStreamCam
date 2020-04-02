@@ -154,7 +154,7 @@ void ofApp::onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& args) {
     ofLogNotice("ofApp::onHTTPUploadEvent") << "# bytes xfer'd: " << args.getNumBytesTransferred();
 }
 
-void ofApp::createResultHtml(string filename) {
+void ofApp::createResultHtml(string fileName) {
     string photoIndexFileName = "DocumentRoot/result.html";
     ofBuffer buff;
     ofFile photoIndexFile;
@@ -162,7 +162,7 @@ void ofApp::createResultHtml(string filename) {
 
     string photoIndex = "<!DOCTYPE html>\n";
     
-    if (filename == "none") { // use existing file if it's there
+    if (fileName == "none") { // use existing file if it's there
         photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"0\"></head><body>\n";
         photoIndex += "READY\n";
     } else { // otherwise make a new one
