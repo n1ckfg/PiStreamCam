@@ -108,14 +108,14 @@ void ofApp::onTakePhotoComplete(string fileName) {
     ofBuffer buff;
     photoIndexFile.open(ofToDataPath(photoIndexFileName), ofFile::ReadWrite, false);
     
-    if (photoIndexFile) { // use existing file if it's there
-        buff = photoIndexFile.readToBuffer();
-        photoIndex = buff.getText();
-    } else { // otherwise make a new one
-        string shortName = ofFilePath::getFileName(fileName);
-        photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
-        
-        buff.set(photoIndex.c_str(), photoIndex.size());
-        ofBufferToFile(photoIndexFileName, buff);
-    }
+    //if (photoIndexFile) { // use existing file if it's there
+        //buff = photoIndexFile.readToBuffer();
+        //photoIndex = buff.getText();
+    //} else { // otherwise make a new one
+    string shortName = ofFilePath::getFileName(fileName);
+    photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
+    
+    buff.set(photoIndex.c_str(), photoIndex.size());
+    ofBufferToFile(photoIndexFileName, buff);
+    //}
 }
