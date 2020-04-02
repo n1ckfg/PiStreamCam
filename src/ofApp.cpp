@@ -84,9 +84,6 @@ void ofApp::setup() {
     postServer.start();
 
     ofSystem("cp /etc/hostname " + ofToDataPath("DocumentRoot/js/"));
-
-    cout << "* hostname: " << ofSystem("cat /etc/hostname");
-    cout << "* unique id: " << compname << endl;  
 }
 
 //--------------------------------------------------------------
