@@ -9,12 +9,6 @@ var liveView;
 
 function main() {
 	liveView = document.getElementById("live_view");
-
-	updateLiveView();
-}
-
-function updateLiveView() {
-	liveView.innerHTML='<object type="text/html" data="http://' + hostName + ':' + port + '" ></object>';
 }
 
 window.onload = main;
