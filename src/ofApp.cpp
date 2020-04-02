@@ -95,10 +95,10 @@ void ofApp::update() {
         img.grabScreen(0,0,width, height);
         streamServer.send(img.getPixels());
 
-        if (firstRun) {
-            cam.takePhoto();
-            firstRun = false;
-        }
+        //if (firstRun) {
+            //cam.takePhoto();
+            //firstRun = false;
+        //}
     }
 }
 
