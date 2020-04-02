@@ -79,7 +79,7 @@ void ofApp::setup() {
     img.allocate(width, height, OF_IMAGE_COLOR);
 
     postSettings.setPort(port);
-    postSettings.setPostRoute("result.html");
+    postSettings.postRoute().setPostRoute("result.html");
     postServer.setup(postSettings);
     postServer.postRoute().registerPostEvents(this);
     postServer.start();
