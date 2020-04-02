@@ -100,7 +100,7 @@ void ofApp::draw() {
 void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
 
-    string photoIndexFileName = "DocumentRoot/photos/index.html";
+    string photoIndexFileName = "DocumentRoot/result.html";
     ofFile photoIndexFile;
     string photoIndex;
     ofBuffer buff;
@@ -110,7 +110,8 @@ void ofApp::onTakePhotoComplete(string fileName) {
         buff = photoIndexFile.readToBuffer();
         photoIndex = buff.getText();
     } else { // otherwise make a new one
-        photoIndex += fileName + "\n";
+        string shortName = ofFilePath::getFileName(fileName);
+        photoIndex += "<a href=\"./photos/" + shortName + "\">" + shortName + "</a>\n";
         
         buff.set(photoIndex.c_str(), photoIndex.size());
         ofBufferToFile(photoIndexFileName, buff);
