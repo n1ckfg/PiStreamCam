@@ -73,7 +73,7 @@ void ofApp::setup() {
     streamSettings.ipVideoRouteSettings.setMaxClientQueueSize(settings.getValue("settings:max_stream_queue", 10)); // default 10
     streamSettings.ipVideoRouteSettings.setMaxStreamWidth(width); // default 1920
     streamSettings.ipVideoRouteSettings.setMaxStreamHeight(height); // default 1080
-    streamSettings.setDefaultIndex("live_view.html");
+    streamSettings.fileSystemRouteSettings.setDefaultIndex("live_view.html");
     streamServer.setup(streamSettings);
     streamServer.start();
 
