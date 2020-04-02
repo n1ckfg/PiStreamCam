@@ -9,7 +9,7 @@ function main() {
 	    hostname = evt.replace(/^\n|\n$/g, ''); // remove line breaks
         
         liveView = document.getElementById("live_view");
-		liveView.src = "http://" + hostName + ".local:" + port;
+		liveView.src = "http://" + hostname + ".local:" + port;
 	});
 }
 
