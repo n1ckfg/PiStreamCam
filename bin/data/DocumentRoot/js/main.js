@@ -1,7 +1,7 @@
 "use strict";
 
 var liveView;
-var hostname="nfg-rpi-3-4.local";
+var hostname="127.0.0.1";
 var port=7111;
 
 function main() {
