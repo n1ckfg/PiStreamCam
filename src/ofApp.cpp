@@ -122,14 +122,14 @@ void ofApp::onTakePhotoComplete(string fileName) {
 
 void ofApp::onHTTPPostEvent(ofxHTTP::PostEventArgs& args) {
     ofLogNotice("ofApp::onHTTPPostEvent") << "Data: " << args.getBuffer().getText();
-    takePhoto();
+    stillCam.takePhoto();
 }
 
 
 void ofApp::onHTTPFormEvent(ofxHTTP::PostFormEventArgs& args) {
     ofLogNotice("ofApp::onHTTPFormEvent") << "";
     ofxHTTP::HTTPUtils::dumpNameValueCollection(args.getForm(), ofGetLogLevel());
-    takePhoto();
+    stillCam.takePhoto();
 }
 
 
