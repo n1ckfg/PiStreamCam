@@ -14,6 +14,7 @@ void ofApp::setup() {
 
     host = settings.getValue("settings:host", "127.0.0.1");
     port = settings.getValue("settings:port", 7110);
+    streamPort = settings.getValue("settings:stream_port", 7111);
 
     debug = (bool) settings.getValue("settings:debug", 1);
    
@@ -44,14 +45,14 @@ void ofApp::setup() {
         camSettings.stillPreviewHeight = height;        
         camSettings.saturation = -100;
         camSettings.sharpness = 100;
-        camSettings.brightness = 75;
+        camSettings.brightness = 50;
         camSettings.stillQuality = 100;
         camSettings.enableStillPreview = true;
         camSettings.burstModeEnabled = true;
         camSettings.saveJSONFile();   
     }
     
-    // override settings
+    // *** override settings ***
     // https://github.com/jvcleave/ofxOMXCamera/blob/master/src/ofxOMXCameraSettings.h
     camSettings.stillPreviewWidth = width;
     camSettings.stillPreviewHeight = height;
@@ -65,13 +66,14 @@ void ofApp::setup() {
     
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
-    streamSettings.setPort(port-1);
+    streamSettings.setPort(streamPort);
     streamSettings.ipVideoRouteSettings.setMaxClientConnections(settings.getValue("settings:max_stream_connections", 1)); // default 5
     streamSettings.ipVideoRouteSettings.setMaxClientBitRate(settings.getValue("settings:max_stream_bitrate", 512)); // default 1024
     streamSettings.ipVideoRouteSettings.setMaxClientFrameRate(settings.getValue("settings:max_stream_framerate", 30)); // default 30
     streamSettings.ipVideoRouteSettings.setMaxClientQueueSize(settings.getValue("settings:max_stream_queue", 10)); // default 10
     streamSettings.ipVideoRouteSettings.setMaxStreamWidth(width); // default 1920
     streamSettings.ipVideoRouteSettings.setMaxStreamHeight(height); // default 1080
+    streamSettings.setDefaultIndex("live_view.html");
     streamServer.setup(streamSettings);
     streamServer.start();
 

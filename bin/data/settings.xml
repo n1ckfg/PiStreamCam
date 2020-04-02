@@ -2,6 +2,7 @@
 <settings>
     <host>BrazilV.local</host>
     <port>7110</port>
+    <stream_port>7111</stream_port>
     <framerate>60</framerate>
     <width>640</width>
     <height>480</height>
