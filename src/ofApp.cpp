@@ -78,9 +78,11 @@ void ofApp::setup() {
 
     img.allocate(width, height, OF_IMAGE_COLOR);
 
+    // https://bakercp.github.io/ofxHTTP/classofx_1_1_h_t_t_p_1_1_simple_post_server_settings.html
+    // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/PostRoute.cpp
     postSettings.setPort(port);
+    postSettings.postRouteSettings.setUploadRedirect("result.html");
     postServer.setup(postSettings);
-    postServer.postRoute().PostRoute("result.html");
     postServer.postRoute().registerPostEvents(this);
     postServer.start();
 
