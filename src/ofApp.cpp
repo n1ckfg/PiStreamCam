@@ -42,9 +42,9 @@ void ofApp::setup() {
         stillCamSettings.sensorHeight = 1944;       
         stillCamSettings.stillPreviewWidth = width;
         stillCamSettings.stillPreviewHeight = height;        
-        stillCamSettings.saturation = -100;
+        //stillCamSettings.saturation = -100;
         stillCamSettings.sharpness = 100;
-        stillCamSettings.brightness = 75;
+        //stillCamSettings.brightness = 75;
         stillCamSettings.stillQuality = 100;
         stillCamSettings.enableStillPreview = true;
         stillCamSettings.burstModeEnabled = true;
@@ -111,7 +111,7 @@ void ofApp::onTakePhotoComplete(string fileName) {
         photoIndex = buff.getText();
     } else { // otherwise make a new one
         string shortName = ofFilePath::getFileName(fileName);
-        photoIndex += "<a href=\"./photos/" + shortName + "\">" + shortName + "</a>\n";
+        photoIndex += "<a href=\"" + fileName + "\">" + shortName + "</a>\n";
         
         buff.set(photoIndex.c_str(), photoIndex.size());
         ofBufferToFile(photoIndexFileName, buff);
