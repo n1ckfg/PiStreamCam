@@ -99,4 +99,20 @@ void ofApp::draw() {
 
 void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
+
+    String photoIndexFileName = "DocumentRoot/photos/index.html";
+    ofFile photoIndexFile;
+    String photoIndex;
+    ofBuffer buff;
+    photoIndexFile.open(ofToDataPath(photoIndexFileName), ofFile::ReadWrite, false);
+    
+    if (photoIndexFile) { // use existing file if it's there
+        buff = photoIndexFile.readToBuffer();
+        photoIndex = buff.getText();
+    } else { // otherwise make a new one
+        photoIndex += fileName + "\n"
+        
+        buff.set(photoIndex.c_str(), photoIndex.size());
+        ofBufferToFile(photoIndexFileName, buff);
+    }
 }
