@@ -13,3 +13,8 @@
 body {
   padding-top: 60px;
 }
+
+#live_view {
+	width: 640px;
+	height: 480px;
+}

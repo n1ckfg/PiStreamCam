@@ -4,8 +4,16 @@ const width = 640;
 const height = 480;
 const port = 7111;
 
-function loadLiveView() {
-	document.getElementById("live_view").innerHTML='<object type="text/html" width="' + width + '" height="' + height + '" data="http://127.0.0.1:' + port + '" ></object>';
+var liveView;
+
+function main() {
+	liveView = document.getElementById("live_view");
+
+	updateLiveView();
 }
 
-window.onload = loadLiveView;
+function updateLiveView() {
+	liveView.innerHTML='<object type="text/html" width="' + width + '" height="' + height + '" data="http://localhost:' + port + '" ></object>';
+}
+
+window.onload = main;
