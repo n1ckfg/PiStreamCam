@@ -100,9 +100,9 @@ void ofApp::draw() {
 void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
 
-    String photoIndexFileName = "DocumentRoot/photos/index.html";
+    string photoIndexFileName = "DocumentRoot/photos/index.html";
     ofFile photoIndexFile;
-    String photoIndex;
+    string photoIndex;
     ofBuffer buff;
     photoIndexFile.open(ofToDataPath(photoIndexFileName), ofFile::ReadWrite, false);
     
