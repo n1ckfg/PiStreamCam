@@ -57,7 +57,9 @@ void ofApp::setup() {
     stillCamSettings.stillPreviewHeight = height;
     stillCamSettings.enablePixels = true;
     stillCamSettings.enableTexture = true;
+    stillCamSettings.recordingFilePath = "DocumentRoot/"
     stillCamSettings.photoGrabberListener = this; //not saved in JSON file
+    
     stillCam.setup(stillCamSettings);
     
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
