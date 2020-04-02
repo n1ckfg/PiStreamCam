@@ -5,7 +5,7 @@ var hostname="127.0.0.1";
 var port=7111;
 
 function main() {
-	hostname = loadFile("hostname");
+	hostname = loadFile("./js/hostname");
 
 	liveView = document.getElementById("live_view");
 	liveView.src = "http://" + hostName + ".local:" + port;
