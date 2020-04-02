@@ -119,3 +119,40 @@ void ofApp::onTakePhotoComplete(string fileName) {
     ofBufferToFile(photoIndexFileName, buff);
     //}
 }
+
+void ofApp::onHTTPPostEvent(ofxHTTP::PostEventArgs& args) {
+    ofLogNotice("ofApp::onHTTPPostEvent") << "Data: " << args.getBuffer().getText();
+    takePhoto();
+}
+
+
+void ofApp::onHTTPFormEvent(ofxHTTP::PostFormEventArgs& args) {
+    ofLogNotice("ofApp::onHTTPFormEvent") << "";
+    ofxHTTP::HTTPUtils::dumpNameValueCollection(args.getForm(), ofGetLogLevel());
+    takePhoto();
+}
+
+
+void ofApp::onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& args) {
+    std::string stateString = "";
+
+    switch (args.getState()) {
+        case ofxHTTP::PostUploadEventArgs::UPLOAD_STARTING:
+            stateString = "STARTING";
+            break;
+        case ofxHTTP::PostUploadEventArgs::UPLOAD_PROGRESS:
+            stateString = "PROGRESS";
+            break;
+        case ofxHTTP::PostUploadEventArgs::UPLOAD_FINISHED:
+            stateString = "FINISHED";
+            break;
+    }
+
+    ofLogNotice("ofApp::onHTTPUploadEvent") << "";
+    ofLogNotice("ofApp::onHTTPUploadEvent") << "         state: " << stateString;
+    ofLogNotice("ofApp::onHTTPUploadEvent") << " formFieldName: " << args.getFormFieldName();
+    ofLogNotice("ofApp::onHTTPUploadEvent") << "orig. filename: " << args.getOriginalFilename();
+    ofLogNotice("ofApp::onHTTPUploadEvent") <<  "     filename: " << args.getFilename();
+    ofLogNotice("ofApp::onHTTPUploadEvent") <<  "     fileType: " << args.getFileType().toString();
+    ofLogNotice("ofApp::onHTTPUploadEvent") << "# bytes xfer'd: " << args.getNumBytesTransferred();
+}
