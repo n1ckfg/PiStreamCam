@@ -124,7 +124,7 @@ void ofApp::onTakePhotoComplete(string fileName) {
     //} else { // otherwise make a new one
     string shortName = ofFilePath::getFileName(fileName);
     photoIndex = "<!DOCTYPE html>\n";
-    photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"0\"></head><body>\n";
+    photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"1\"></head><body>\n";
     photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
     photoIndex += "</body></html>\n";
 
