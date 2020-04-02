@@ -110,7 +110,7 @@ void ofApp::onTakePhotoComplete(string fileName) {
         buff = photoIndexFile.readToBuffer();
         photoIndex = buff.getText();
     } else { // otherwise make a new one
-        photoIndex += fileName + "\n"
+        photoIndex += fileName + "\n";
         
         buff.set(photoIndex.c_str(), photoIndex.size());
         ofBufferToFile(photoIndexFileName, buff);
