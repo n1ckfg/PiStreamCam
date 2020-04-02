@@ -48,7 +48,7 @@ void ofApp::setup() {
         stillCamSettings.stillQuality = 100;
         stillCamSettings.enableStillPreview = true;
         stillCamSettings.burstModeEnabled = true;
-        stillCamSettings.saveJSONFile();
+        stillCamSettings.saveJSONFile();   
     }
     
     // override settings
@@ -57,11 +57,13 @@ void ofApp::setup() {
     stillCamSettings.stillPreviewHeight = height;
     stillCamSettings.enablePixels = true;
     stillCamSettings.enableTexture = true;
-    stillCamSettings.saturation = 100;
-    stillCamSettings.brightness = 50;
+    stillCamSettings.autoISO = false;
+    stillCamSettings.autoShutter = false;
+    stillCamSettings.saturation = 0;
+    stillCamSettings.brightness = 0;
     stillCamSettings.savedPhotosFolderName = "DocumentRoot/photos"; // default "photos"
     stillCamSettings.photoGrabberListener = this; //not saved in JSON file
-    
+
     stillCam.setup(stillCamSettings);
     
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
