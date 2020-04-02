@@ -16,7 +16,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 		int width, height;
 		bool firstRun = true;
 		
-		string compname;
+		string compname, hostname;
 		string host; // hostname;
 		int port, streamPort; // default 7110;
 

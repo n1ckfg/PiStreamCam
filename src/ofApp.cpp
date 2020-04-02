@@ -32,7 +32,6 @@ void ofApp::setup() {
         buff.set(compname.c_str(), compname.size());
         ofBufferToFile("compname.txt", buff);
     }
-    cout << compname << endl;  
 
     ofFile settingsFile("settings.json");
     if (settingsFile.exists()) {
@@ -84,7 +83,10 @@ void ofApp::setup() {
     postServer.postRoute().registerPostEvents(this);
     postServer.start();
 
-    cout << "***" << ofSystem("cat /etc/hostname") << endl;
+    hostname = ofSystem("cat /etc/hostname");
+    ofSystem("cp /etc/hostname ./bin/data/DocumentRoot/js/");
+
+    cout << "hostname: " << hostname << ", unique id: " << compname << endl;  
 }
 
 //--------------------------------------------------------------
