@@ -36,57 +36,61 @@ void ofApp::setup() {
     ofFile settingsFile("settings.json");
     if (settingsFile.exists()) {
         ofBuffer jsonBuffer = ofBufferFromFile("settings.json");
-        stillCamSettings.parseJSON(jsonBuffer.getText());
+        camSettings.parseJSON(jsonBuffer.getText());
     } else {
-        stillCamSettings.sensorWidth = 2592;
-        stillCamSettings.sensorHeight = 1944;       
-        stillCamSettings.stillPreviewWidth = width;
-        stillCamSettings.stillPreviewHeight = height;        
-        stillCamSettings.saturation = -100;
-        stillCamSettings.sharpness = 100;
-        stillCamSettings.brightness = 75;
-        stillCamSettings.stillQuality = 100;
-        stillCamSettings.enableStillPreview = true;
-        stillCamSettings.burstModeEnabled = true;
-        stillCamSettings.saveJSONFile();   
+        camSettings.sensorWidth = 2592;
+        camSettings.sensorHeight = 1944;       
+        camSettings.stillPreviewWidth = width;
+        camSettings.stillPreviewHeight = height;        
+        camSettings.saturation = -100;
+        camSettings.sharpness = 100;
+        camSettings.brightness = 75;
+        camSettings.stillQuality = 100;
+        camSettings.enableStillPreview = true;
+        camSettings.burstModeEnabled = true;
+        camSettings.saveJSONFile();   
     }
     
     // override settings
     // https://github.com/jvcleave/ofxOMXCamera/blob/master/src/ofxOMXCameraSettings.h
-    stillCamSettings.stillPreviewWidth = width;
-    stillCamSettings.stillPreviewHeight = height;
-    stillCamSettings.enablePixels = true;
-    stillCamSettings.enableTexture = true;
-    stillCamSettings.autoISO = false;
-    stillCamSettings.autoShutter = false;
-    stillCamSettings.savedPhotosFolderName = "DocumentRoot/photos"; // default "photos"
-    stillCamSettings.photoGrabberListener = this; //not saved in JSON file
-
-    stillCam.setup(stillCamSettings);
+    camSettings.stillPreviewWidth = width;
+    camSettings.stillPreviewHeight = height;
+    camSettings.enablePixels = true;
+    camSettings.enableTexture = true;
+    camSettings.autoISO = false;
+    camSettings.autoShutter = false;
+    camSettings.savedPhotosFolderName = "DocumentRoot/photos"; // default "photos"
+    camSettings.photoGrabberListener = this; //not saved in JSON file
+    cam.setup(camSettings);
     
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
-    streamSettings.setPort(port);
+    streamSettings.setPort(port-1);
     streamSettings.ipVideoRouteSettings.setMaxClientConnections(settings.getValue("settings:max_stream_connections", 1)); // default 5
     streamSettings.ipVideoRouteSettings.setMaxClientBitRate(settings.getValue("settings:max_stream_bitrate", 512)); // default 1024
     streamSettings.ipVideoRouteSettings.setMaxClientFrameRate(settings.getValue("settings:max_stream_framerate", 30)); // default 30
     streamSettings.ipVideoRouteSettings.setMaxClientQueueSize(settings.getValue("settings:max_stream_queue", 10)); // default 10
     streamSettings.ipVideoRouteSettings.setMaxStreamWidth(width); // default 1920
     streamSettings.ipVideoRouteSettings.setMaxStreamHeight(height); // default 1080
-    server.setup(streamSettings);
-    server.start();
+    streamServer.setup(streamSettings);
+    streamServer.start();
 
     img.allocate(width, height, OF_IMAGE_COLOR);
+
+    postSettings.setPort(port);
+    postServer.setup(postSettings);
+    postServer.postRoute().registerPostEvents(this);
+    postServer.start();
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    if (stillCam.isFrameNew()) {
+    if (cam.isFrameNew()) {
         img.grabScreen(0,0,width, height);
-        server.send(img.getPixels());
+        streamServer.send(img.getPixels());
 
         if (firstRun) {
-            stillCam.takePhoto();
+            cam.takePhoto();
             firstRun = false;
         }
     }
@@ -94,8 +98,8 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-    if (debug && stillCam.isTextureEnabled()) {
-        stillCam.draw(0, 0);
+    if (debug && cam.isTextureEnabled()) {
+        cam.draw(0, 0);
     } 
 }
 
@@ -122,14 +126,14 @@ void ofApp::onTakePhotoComplete(string fileName) {
 
 void ofApp::onHTTPPostEvent(ofxHTTP::PostEventArgs& args) {
     ofLogNotice("ofApp::onHTTPPostEvent") << "Data: " << args.getBuffer().getText();
-    stillCam.takePhoto();
+    cam.takePhoto();
 }
 
 
 void ofApp::onHTTPFormEvent(ofxHTTP::PostFormEventArgs& args) {
     ofLogNotice("ofApp::onHTTPFormEvent") << "";
     ofxHTTP::HTTPUtils::dumpNameValueCollection(args.getForm(), ofGetLogLevel());
-    stillCam.takePhoto();
+    cam.takePhoto();
 }
 
 

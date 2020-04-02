@@ -25,22 +25,23 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 		ofFile file;
 		ofxXmlSettings settings;
 
-		ofxOMXPhotoGrabber stillCam;
- 	    ofxOMXCameraSettings stillCamSettings;
+		ofxOMXPhotoGrabber cam;
+ 	    ofxOMXCameraSettings camSettings;
 		ofImage img;
-
-		ofxHTTP::SimpleIPVideoServer server;
-    	ofxHTTP::SimpleIPVideoServerSettings streamSettings;
 
 		int framerate;
 
-	    vector<string>photoFiles;
-	    void onTakePhotoComplete(string fileName) override;
+		ofxHTTP::SimpleIPVideoServer streamServer;
+    	ofxHTTP::SimpleIPVideoServerSettings streamSettings;
+	    vector<string> photoFiles;
+    	void onTakePhotoComplete(string fileName) override;
 	    void onPhotoGrabberEngineStart()override 
 	    {
 	        
 	    };
 
+	    ofxHTTP::SimplePostServer postServer;
+		ofxHTTP::SimplePostServerSettings postSettings;
 	    void onHTTPPostEvent(ofxHTTP::PostEventArgs& evt);
 	    void onHTTPFormEvent(ofxHTTP::PostFormEventArgs& evt);
 	    void onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& evt);
