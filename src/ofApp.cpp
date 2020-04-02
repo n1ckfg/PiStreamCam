@@ -83,6 +83,8 @@ void ofApp::setup() {
     postServer.setup(postSettings);
     postServer.postRoute().registerPostEvents(this);
     postServer.start();
+
+    cout << "***" << ofSystem("cat /etc/hostname") << endl;
 }
 
 //--------------------------------------------------------------
