@@ -14,7 +14,7 @@ function main() {
 }
 
 function updateLiveView() {
-	liveView.innerHTML='<object type="text/html" width="' + width + '" height="' + height + '" data="http://' + hostName + ':' + port + '" ></object>';
+	liveView.innerHTML='<object type="text/html" data="http://' + hostName + ':' + port + '" ></object>';
 }
 
 window.onload = main;
