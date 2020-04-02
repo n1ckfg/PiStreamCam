@@ -2,6 +2,7 @@
 
 const width = 640;
 const height = 480;
+const hostName = "nfg-rpi-3-4.local";
 const port = 7111;
 
 var liveView;
@@ -13,7 +14,7 @@ function main() {
 }
 
 function updateLiveView() {
-	liveView.innerHTML='<object type="text/html" width="' + width + '" height="' + height + '" data="http://localhost:' + port + '" ></object>';
+	liveView.innerHTML='<object type="text/html" width="' + width + '" height="' + height + '" data="http://' + hostName + ':' + port + '" ></object>';
 }
 
 window.onload = main;
