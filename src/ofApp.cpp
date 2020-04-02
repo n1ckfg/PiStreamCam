@@ -59,8 +59,6 @@ void ofApp::setup() {
     stillCamSettings.enableTexture = true;
     stillCamSettings.autoISO = false;
     stillCamSettings.autoShutter = false;
-    stillCamSettings.saturation = 0;
-    stillCamSettings.brightness = 0;
     stillCamSettings.savedPhotosFolderName = "DocumentRoot/photos"; // default "photos"
     stillCamSettings.photoGrabberListener = this; //not saved in JSON file
 
