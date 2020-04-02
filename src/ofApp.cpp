@@ -42,9 +42,9 @@ void ofApp::setup() {
         stillCamSettings.sensorHeight = 1944;       
         stillCamSettings.stillPreviewWidth = width;
         stillCamSettings.stillPreviewHeight = height;        
-        //stillCamSettings.saturation = -100;
+        stillCamSettings.saturation = -100;
         stillCamSettings.sharpness = 100;
-        //stillCamSettings.brightness = 75;
+        stillCamSettings.brightness = 75;
         stillCamSettings.stillQuality = 100;
         stillCamSettings.enableStillPreview = true;
         stillCamSettings.burstModeEnabled = true;
@@ -57,6 +57,8 @@ void ofApp::setup() {
     stillCamSettings.stillPreviewHeight = height;
     stillCamSettings.enablePixels = true;
     stillCamSettings.enableTexture = true;
+    stillCamSettings.saturation = 100;
+    stillCamSettings.brightness = 50;
     stillCamSettings.savedPhotosFolderName = "DocumentRoot/photos"; // default "photos"
     stillCamSettings.photoGrabberListener = this; //not saved in JSON file
     
