@@ -57,7 +57,7 @@ void ofApp::setup() {
     stillCamSettings.stillPreviewHeight = height;
     stillCamSettings.enablePixels = true;
     stillCamSettings.enableTexture = true;
-    stillCamSettings.recordingFilePath = "DocumentRoot/";
+    stillCamSettings.savedPhotosFolderName = "DocumentRoot/photos"; // default "photos"
     stillCamSettings.photoGrabberListener = this; //not saved in JSON file
     
     stillCam.setup(stillCamSettings);
@@ -99,5 +99,4 @@ void ofApp::draw() {
 
 void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
-    stillCam.setJPEGCompression(100);
 }
