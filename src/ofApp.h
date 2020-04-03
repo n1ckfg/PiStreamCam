@@ -26,7 +26,8 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 
 		ofxOMXPhotoGrabber cam;
  	    ofxOMXCameraSettings camSettings;
-		ofImage img;
+		ofFbo fbo;
+		ofPixels pixels;
 
 		int framerate;
 

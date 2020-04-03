@@ -76,7 +76,8 @@ void ofApp::setup() {
     streamServer.setup(streamSettings);
     streamServer.start();
 
-    img.allocate(width, height, OF_IMAGE_COLOR);
+    fbo.allocate(width, height, GL_RGBA);
+    pixels.allocate(width, height, OF_IMAGE_COLOR);
 
     // https://bakercp.github.io/ofxHTTP/classofx_1_1_h_t_t_p_1_1_simple_post_server_settings.html
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/PostRoute.cpp
@@ -91,9 +92,12 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    if (cam.isFrameNew()) {
-        img.grabScreen(0,0,width, height);
-        streamServer.send(img.getPixels());
+    if (cam.isFrameNew() && cam.isTextureEnabled()) {
+        fbo.begin();
+        cam.draw(0,0);
+        fbo.end();
+        fbo.readToPixels(pixels);
+        streamServer.send(pixels);
 
         //if (firstRun) {
             //cam.takePhoto();
@@ -105,7 +109,7 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
     if (debug && cam.isTextureEnabled()) {
-        cam.draw(0, 0);
+        fbo.draw(0, 0);
     } 
 }
 
