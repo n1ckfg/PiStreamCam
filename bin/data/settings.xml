@@ -17,8 +17,8 @@
     <exposure_compensation>0</exposure_compensation>
 	<shutter_speed>100000</shutter_speed>
     <!-- * -->
-    <max_stream_connections>1</max_stream_connections>
+    <max_stream_connections>5</max_stream_connections>
     <max_stream_bitrate>512</max_stream_bitrate>
     <max_stream_framerate>30</max_stream_framerate>
-    <max_stream_queue>10</max_stream_queue>
+    <max_stream_queue>1</max_stream_queue>
 </settings>
