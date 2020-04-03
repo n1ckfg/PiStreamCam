@@ -5,6 +5,7 @@
 #include "ofxOMXPhotoGrabber.h"
 #include "ofxXmlSettings.h"
 #include "ofxHTTP.h"
+#include "ofxLibwebsockets.h"
 
 class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 

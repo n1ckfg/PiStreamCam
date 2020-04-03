@@ -6,7 +6,7 @@ var camNameEnd = ".local:7110";
 var activeCams = [];
 
 function main() {
-	loadPages();
+	//loadPages();
 	setupKeys();
 }
 
