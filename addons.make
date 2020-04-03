@@ -6,3 +6,4 @@ ofxMediaType
 ofxNetworkUtils
 ofxPoco
 ofxSSLManager
+ofxLibwebsockets
