@@ -76,6 +76,7 @@ void ofApp::setup() {
     streamServer.setup(streamSettings);
     streamServer.start();
 
+    shader.load("shaders/es/invert.glsl");
     fbo.allocate(width, height, GL_RGBA);
     pixels.allocate(width, height, OF_IMAGE_COLOR);
 
@@ -94,7 +95,9 @@ void ofApp::setup() {
 void ofApp::update() {
     if (cam.isFrameNew() && cam.isTextureEnabled()) {
         fbo.begin();
+        if (doShader) shader.begin();
         cam.draw(0,0);
+        if (doShader) shader.end();
         fbo.end();
         fbo.readToPixels(pixels);
         streamServer.send(pixels);
@@ -117,12 +120,14 @@ void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
 
     createResultHtml(fileName);
+    doShader = false;
 }
 
 void ofApp::onHTTPPostEvent(ofxHTTP::PostEventArgs& args) {
     ofLogNotice("ofApp::onHTTPPostEvent") << "Data: " << args.getBuffer().getText();
     cam.takePhoto();
     createResultHtml("none");
+    doShader = true;
 }
 
 
@@ -131,6 +136,7 @@ void ofApp::onHTTPFormEvent(ofxHTTP::PostFormEventArgs& args) {
     ofxHTTP::HTTPUtils::dumpNameValueCollection(args.getForm(), ofGetLogLevel());
     cam.takePhoto();
     createResultHtml("none");
+    doShader = true;
 }
 
 

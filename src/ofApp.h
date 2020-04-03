@@ -28,7 +28,9 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
  	    ofxOMXCameraSettings camSettings;
 		ofFbo fbo;
 		ofPixels pixels;
-
+		ofShader shader;
+		bool doShader = false;
+		
 		int framerate;
 
 		ofxHTTP::SimpleIPVideoServer streamServer;
