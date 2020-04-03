@@ -76,7 +76,7 @@ void ofApp::setup() {
     streamServer.setup(streamSettings);
     streamServer.start();
 
-    shader.load("shaders/es/invert.glsl");
+    shader.load("shaders/es/invert");
     fbo.allocate(width, height, GL_RGBA);
     pixels.allocate(width, height, OF_IMAGE_COLOR);
 
