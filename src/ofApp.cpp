@@ -55,7 +55,7 @@ void ofApp::setup() {
     // https://github.com/jvcleave/ofxOMXCamera/blob/master/src/ofxOMXCameraSettings.h
     camSettings.stillPreviewWidth = width;
     camSettings.stillPreviewHeight = height;
-    camSettings.enablePixels = true;
+    //camSettings.enablePixels = true;
     camSettings.enableTexture = true;
     camSettings.autoISO = false;
     camSettings.autoShutter = false;
