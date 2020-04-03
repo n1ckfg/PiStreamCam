@@ -7,6 +7,8 @@
 #include "ofxHTTP.h"
 #include "ofxLibwebsockets.h"
 
+#define NUM_MESSAGES 30 // how many past ws messages we want to keep
+
 class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 
 	public:	
@@ -50,5 +52,15 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 	    void onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& evt);
 
 	    void createResultHtml(string filename);
+
+        ofxLibwebsockets::Client wsClient;
+    
+        // websocket methods
+        void onConnect(ofxLibwebsockets::Event& args);
+        void onOpen(ofxLibwebsockets::Event& args);
+        void onClose(ofxLibwebsockets::Event& args);
+        void onIdle(ofxLibwebsockets::Event& args);
+        void onMessage(ofxLibwebsockets::Event& args);
+        void onBroadcast(ofxLibwebsockets::Event& args);
 
 };
