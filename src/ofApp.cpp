@@ -215,6 +215,7 @@ void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt)
 
     ofxJSONElement json;
 
+    /*
     if (json.parse(evt.getFrameRef().getText())) {
         //std::cout << json.toStyledString() << std::endl;
 
@@ -228,8 +229,9 @@ void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt)
             }
         }
     } else {
-        ofLogError("ofApp::onWebSocketFrameReceivedEvent") << "Unable to parse JSON: "  << evt.getFrameRef().getText();
+        //ofLogError("ofApp::onWebSocketFrameReceivedEvent") << "Unable to parse JSON: "  << evt.getFrameRef().getText();
     }
+    */
 }
 
 
