@@ -100,6 +100,8 @@ void ofApp::setup() {
     wsSettings.setPort(wsPort);
     wsServer.setup(wsSettings);
     wsServer.start();
+
+    // events: connect, open, close, idle, message, broadcast
 }
 
 //--------------------------------------------------------------
@@ -196,4 +198,8 @@ void ofApp::createResultHtml(string fileName) {
 
     buff.set(photoIndex.c_str(), photoIndex.size());
     ofBufferToFile(photoIndexFileName, buff);
+}
+
+void ofApp::handleRequest(ofxHTTP::ServerEventArgs& evt) {
+    cout << evt.request().clientAddress() << endl;
 }
