@@ -201,5 +201,5 @@ void ofApp::createResultHtml(string fileName) {
 }
 
 void ofApp::handleRequest(ofxHTTP::ServerEventArgs& evt) {
-    cout << evt.request().clientAddress() << endl;
+    cout << "Ws test message received!" << endl;
 }
