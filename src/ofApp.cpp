@@ -34,6 +34,7 @@ void ofApp::setup() {
         ofBufferToFile("compname.txt", buff);
     }
 
+    // * camera *
     ofFile settingsFile("settings.json");
     if (settingsFile.exists()) {
         ofBuffer jsonBuffer = ofBufferFromFile("settings.json");
@@ -52,7 +53,7 @@ void ofApp::setup() {
         camSettings.saveJSONFile();   
     }
     
-    // *** override settings ***
+    // ~ override settings ~
     // https://github.com/jvcleave/ofxOMXCamera/blob/master/src/ofxOMXCameraSettings.h
     camSettings.stillPreviewWidth = width;
     camSettings.stillPreviewHeight = height;
@@ -64,6 +65,7 @@ void ofApp::setup() {
     camSettings.photoGrabberListener = this; //not saved in JSON file
     cam.setup(camSettings);
     
+    // * stream video *
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/IPVideoRoute.h
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/IPVideoRoute.cpp
     streamSettings.setPort(streamPort);
@@ -81,6 +83,7 @@ void ofApp::setup() {
     fbo.allocate(width, height, GL_RGBA);
     pixels.allocate(width, height, OF_IMAGE_COLOR);
 
+    // * post form *
     // https://bakercp.github.io/ofxHTTP/classofx_1_1_h_t_t_p_1_1_simple_post_server_settings.html
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/PostRoute.cpp
     postSettings.setPort(postPort);
@@ -91,7 +94,9 @@ void ofApp::setup() {
 
     ofSystem("cp /etc/hostname " + ofToDataPath("DocumentRoot/js/"));
 
-    // websockets
+    // * websockets *
+    // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/WebSocketConnection.h
+    // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/WebSocketConnection.cpp
     wsSettings.setPort(wsPort);
     wsServer.setup(wsSettings);
     wsServer.start();
