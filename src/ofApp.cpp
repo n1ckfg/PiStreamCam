@@ -200,6 +200,44 @@ void ofApp::createResultHtml(string fileName) {
     ofBufferToFile(photoIndexFileName, buff);
 }
 
-void ofApp::handleRequest(ofxHTTP::ServerEventArgs& evt) {
-    cout << "Ws test message received!" << endl;
+void ofApp::onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt) {
+    cout << "Connection opened from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+}
+
+
+void ofApp::onWebSocketCloseEvent(ofxHTTP::WebSocketEventArgs& evt) {
+    cout << "Connection closed from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+}
+
+
+void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
+    cout << "Frame from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+
+    ofxJSONElement json;
+
+    if(json.parse(evt.getFrameRef().getText())) {
+        std::cout << json.toStyledString() << std::endl;
+
+        if(json.isMember("command") && json["command"] == "SET_BACKGROUND_COLOR") {
+            if(json["data"] == "white") {
+                bgColor = ofColor::white;
+            } else if(json["data"] == "black") {
+                bgColor = ofColor::black;
+            } else {
+                cout << "Unknown color: " << json["data"].toStyledString() << endl;
+            }
+        }
+    } else {
+        ofLogError("ofApp::onWebSocketFrameReceivedEvent") << "Unable to parse JSON: "  << evt.getFrameRef().getText();
+    }
+}
+
+
+void ofApp::onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
+    // frame was sent to clients
+}
+
+
+void ofApp::onWebSocketErrorEvent(ofxHTTP::WebSocketEventArgs& evt) {
+    cout << "Error from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
 }

@@ -5,6 +5,7 @@
 #include "ofxOMXPhotoGrabber.h"
 #include "ofxXmlSettings.h"
 #include "ofxHTTP.h"
+#include "ofxJSONElement.h"
 
 #define NUM_MESSAGES 30 // how many past ws messages we want to keep
 
@@ -55,6 +56,10 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
         
         ofxHTTP::SimpleWebSocketServer wsServer;  
 		ofxHTTP::SimpleWebSocketServerSettings wsSettings;
-		void handleRequest(ofxHTTP::ServerEventArgs& evt);
+	    void onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt);
+	    void onWebSocketCloseEvent(ofxHTTP::WebSocketEventArgs& evt);
+	    void onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
+	    void onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
+	    void onWebSocketErrorEvent(ofxHTTP::WebSocketEventArgs& evt);
 
 };
