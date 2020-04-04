@@ -40,6 +40,7 @@ void ofApp::setup() {
         ofBuffer jsonBuffer = ofBufferFromFile("settings.json");
         camSettings.parseJSON(jsonBuffer.getText());
     } else {
+        // note: RPi cam v1 is 2592 x 1944, v2 is 3280 × 2464
         camSettings.sensorWidth = 2592;
         camSettings.sensorHeight = 1944;       
         camSettings.stillPreviewWidth = width;

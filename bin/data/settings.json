@@ -55,8 +55,8 @@
         "x": 0.0,
         "y": 0.0
     },
-    "sensorHeight": 1944,
-    "sensorWidth": 2592,
+    "sensorWidth": 3280,
+    "sensorHeight": 2464,
     "sharpness": 100,
     "shutterSpeed": 0,
     "shutterSpeedNormalized": 0.0,
