@@ -19,7 +19,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 		
 		string compname;
 		string host; // hostname;
-		int port, streamPort; // default 7110;
+		int postPort, streamPort, wsPort;
 
 		bool debug; // draw to local screen, default true
 
@@ -53,7 +53,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 	    void createResultHtml(string filename);
 
         
-        ofxHTTP::SimpleWebSocketServer wsserver;  
-	
+        ofxHTTP::SimpleWebSocketServer wsServer;  
+		ofxHTTP::SimpleWebSocketServerSettings wsSettings
 
 };

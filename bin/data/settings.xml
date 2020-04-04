@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <settings>
     <host>BrazilV.local</host>
-    <port>7110</port>
+    <post_port>7110</post_port>
     <stream_port>7111</stream_port>
+    <ws_port>7112</ws_port>
     <framerate>60</framerate>
     <width>640</width>
     <height>480</height>

@@ -13,8 +13,9 @@ void ofApp::setup() {
     ofSetFrameRate(framerate);
 
     host = settings.getValue("settings:host", "127.0.0.1");
-    port = settings.getValue("settings:port", 7110);
+    postPort = settings.getValue("settings:post_port", 7110);
     streamPort = settings.getValue("settings:stream_port", 7111);
+    wsPort = settings.getValue("settings:stream_port", 7112);
 
     debug = (bool) settings.getValue("settings:debug", 1);
    
@@ -82,13 +83,18 @@ void ofApp::setup() {
 
     // https://bakercp.github.io/ofxHTTP/classofx_1_1_h_t_t_p_1_1_simple_post_server_settings.html
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/PostRoute.cpp
-    postSettings.setPort(port);
+    postSettings.setPort(postPort);
     postSettings.postRouteSettings.setUploadRedirect("result.html");
     postServer.setup(postSettings);
     postServer.postRoute().registerPostEvents(this);
     postServer.start();
 
     ofSystem("cp /etc/hostname " + ofToDataPath("DocumentRoot/js/"));
+
+    // websockets
+    wsSettings.setPort(wsPort);
+    wsServer.setup(wsSettings);
+    wsServer.start();
 }
 
 //--------------------------------------------------------------
