@@ -201,17 +201,17 @@ void ofApp::createResultHtml(string fileName) {
 }
 
 void ofApp::onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt) {
-    //cout << "Connection opened from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << "Connection opened from: ?" << endl;// << evt.getConnectionRef().getClientAddress().toString() << endl;
 }
 
 
 void ofApp::onWebSocketCloseEvent(ofxHTTP::WebSocketEventArgs& evt) {
-    //cout << "Connection closed from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << "Connection closed from: ?" << endl; //<< evt.getConnectionRef().getClientAddress().toString() << endl;
 }
 
 
 void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
-    //cout << "Frame from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << "Frame from: ?" << endl; // << evt.getConnectionRef().getClientAddress().toString() << endl;
 
     ofxJSONElement json;
 
@@ -236,10 +236,10 @@ void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt)
 
 
 void ofApp::onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
-    // frame was sent to clients
+    cout << "Frame was sent to clients." << endl;
 }
 
 
 void ofApp::onWebSocketErrorEvent(ofxHTTP::WebSocketEventArgs& evt) {
-    //cout << "Error from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << "Error from: ?" << endl; //<< evt.getConnectionRef().getClientAddress().toString() << endl;
 }
