@@ -15,7 +15,7 @@ void ofApp::setup() {
     host = settings.getValue("settings:host", "127.0.0.1");
     postPort = settings.getValue("settings:post_port", 7110);
     streamPort = settings.getValue("settings:stream_port", 7111);
-    wsPort = settings.getValue("settings:stream_port", 7112);
+    wsPort = settings.getValue("settings:ws_port", 7112);
 
     debug = (bool) settings.getValue("settings:debug", 1);
    
