@@ -201,30 +201,30 @@ void ofApp::createResultHtml(string fileName) {
 }
 
 void ofApp::onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt) {
-    cout << "Connection opened from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+    //cout << "Connection opened from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
 }
 
 
 void ofApp::onWebSocketCloseEvent(ofxHTTP::WebSocketEventArgs& evt) {
-    cout << "Connection closed from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+    //cout << "Connection closed from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
 }
 
 
 void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
-    cout << "Frame from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+    //cout << "Frame from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
 
     ofxJSONElement json;
 
-    if(json.parse(evt.getFrameRef().getText())) {
-        std::cout << json.toStyledString() << std::endl;
+    if (json.parse(evt.getFrameRef().getText())) {
+        //std::cout << json.toStyledString() << std::endl;
 
-        if(json.isMember("command") && json["command"] == "SET_BACKGROUND_COLOR") {
-            if(json["data"] == "white") {
-                bgColor = ofColor::white;
-            } else if(json["data"] == "black") {
-                bgColor = ofColor::black;
+        if (json.isMember("command") && json["command"] == "SET_BACKGROUND_COLOR") {
+            if (json["data"] == "white") {
+                //bgColor = ofColor::white;
+            } else if (json["data"] == "black") {
+                //bgColor = ofColor::black;
             } else {
-                cout << "Unknown color: " << json["data"].toStyledString() << endl;
+                //cout << "Unknown color: " << json["data"].toStyledString() << endl;
             }
         }
     } else {
@@ -239,5 +239,5 @@ void ofApp::onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
 
 
 void ofApp::onWebSocketErrorEvent(ofxHTTP::WebSocketEventArgs& evt) {
-    cout << "Error from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
+    //cout << "Error from: " << evt.getConnectionRef().getClientAddress().toString() << endl;
 }
