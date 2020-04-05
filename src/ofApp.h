@@ -34,6 +34,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 		ofShader shader;
 		bool doShader = false;
 		int framerate;
+		int rpiCamVersion = 0; // 0 for not an RPi cam, 1 for v1, 2 for v2
 
 	    void createResultHtml(string fileName);
 	    void beginTakePhoto();

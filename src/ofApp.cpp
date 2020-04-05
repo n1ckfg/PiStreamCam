@@ -18,7 +18,8 @@ void ofApp::setup() {
     wsPort = settings.getValue("settings:ws_port", 7112);
 
     debug = (bool) settings.getValue("settings:debug", 1);
-   
+    rpiCamVersion = settings.getValue("settings:rpi_cam_version", 1);
+
     // ~ ~ ~   get a persistent name for this computer   ~ ~ ~
     compname = "RPi";
     file.open(ofToDataPath("compname.txt"), ofFile::ReadWrite, false);
@@ -40,7 +41,6 @@ void ofApp::setup() {
         ofBuffer jsonBuffer = ofBufferFromFile("settings.json");
         camSettings.parseJSON(jsonBuffer.getText());
     } else {
-        // note: RPi cam v1 is 2592 x 1944, v2 is 3280 × 2464
         camSettings.sensorWidth = 2592;
         camSettings.sensorHeight = 1944;       
         camSettings.stillPreviewWidth = width;
@@ -58,6 +58,13 @@ void ofApp::setup() {
     // https://github.com/jvcleave/ofxOMXCamera/blob/master/src/ofxOMXCameraSettings.h
     camSettings.stillPreviewWidth = width;
     camSettings.stillPreviewHeight = height;
+    if (rpiCamVersion == 1) {
+        camSettings.sensorWidth = 2592;
+        camSettings.sensorHeight = 1944;  
+    } else if (rpiCamVersion == 2) {
+        camSettings.sensorWidth = 3280;
+        camSettings.sensorHeight = 2464;  
+    }
     //camSettings.enablePixels = true;
     camSettings.enableTexture = true;
     camSettings.autoISO = false;
