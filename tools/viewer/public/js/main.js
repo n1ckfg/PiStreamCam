@@ -12,7 +12,7 @@ function main() {
 	openCamConnections();
 	setupKeys();
 
-	for (var i=0; i<camNameList; i++) {
+	for (var i=0; i<camNameList.length; i++) {
 		var sb = document.getElementById("sb"+(i+1));
 		stillBoxes.push(sb);
 	}
@@ -63,18 +63,21 @@ function openCamConnections() {
 	}	
 
 	for (var i=0; i<camWs.length; i++) {
-		camWs[i].onmessage = function(evt) { onWsMessage(evt) };
+		camWs[i].onmessage = function(evt) { onMessage(evt) };
 	}
 }
 
 // ~ ~ ~ ~ ~ ~ ~ ~ 
 
-function onWsMessage(evt) {
+function onMessage(evt) {
 	var results = evt.data.split(",");
-	console.log("RESPONSE: " + results[0] + ", " + results[1]);
-	for (var i=0; i<camNameList; i++) {
-		if (results[0] === camNameList[i]) {
-			stillBoxes[i].innerHTML = "<img src=\"http://" + camNameList[i] + ".local:7110/photos/" + results[1] + "\">";
+	console.log(results);
+	for (var i=0; i<camNameList.length; i++) {
+		if (results[0] == camNameList[i]) {
+			var url = "http://" + camNameList[i] + ".local:7110/photos/" + results[1];
+			console.log("RESPONSE: " + url);
+			stillBoxes[i].style.backgroundImage = "url(\"" + url + "\")";
+			stillBoxes[i].style.backgroundSize = "100px 75px";
 			break;
 		}
 	}
