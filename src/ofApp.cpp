@@ -100,8 +100,10 @@ void ofApp::setup() {
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/src/WebSocketConnection.cpp
     wsSettings.setPort(wsPort);
     wsServer.setup(wsSettings);
+    wsServer.getWebSocketRoute().registerWebSocketEvents(this);
     wsServer.start();
 
+    cout << "Started websocket server at: " << wsServer.getURL() << endl;
     // events: connect, open, close, idle, message, broadcast
 }
 
