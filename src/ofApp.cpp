@@ -116,11 +116,6 @@ void ofApp::update() {
         fbo.end();
         fbo.readToPixels(pixels);
         streamServer.send(pixels);
-
-        //if (firstRun) {
-            //cam.takePhoto();
-            //firstRun = false;
-        //}
     }
 }
 
@@ -131,27 +126,26 @@ void ofApp::draw() {
     } 
 }
 
+// ~ ~ ~ CAM ~ ~ ~
 void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
 
-    createResultHtml(fileName);
-    doShader = false;
+    endTakePhoto();
 }
 
+// ~ ~ ~ POST ~ ~ ~
 void ofApp::onHTTPPostEvent(ofxHTTP::PostEventArgs& args) {
     ofLogNotice("ofApp::onHTTPPostEvent") << "Data: " << args.getBuffer().getText();
-    cam.takePhoto();
-    createResultHtml("none");
-    doShader = true;
+
+    beginTakePhoto();
 }
 
 
 void ofApp::onHTTPFormEvent(ofxHTTP::PostFormEventArgs& args) {
     ofLogNotice("ofApp::onHTTPFormEvent") << "";
     ofxHTTP::HTTPUtils::dumpNameValueCollection(args.getForm(), ofGetLogLevel());
-    cam.takePhoto();
-    createResultHtml("none");
-    doShader = true;
+    
+    beginTakePhoto();
 }
 
 
@@ -179,45 +173,27 @@ void ofApp::onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& args) {
     ofLogNotice("ofApp::onHTTPUploadEvent") << "# bytes xfer'd: " << args.getNumBytesTransferred();
 }
 
-void ofApp::createResultHtml(string fileName) {
-    string photoIndexFileName = "DocumentRoot/result.html";
-    ofBuffer buff;
-    ofFile photoIndexFile;
-    photoIndexFile.open(ofToDataPath(photoIndexFileName), ofFile::ReadWrite, false);
-
-    string photoIndex = "<!DOCTYPE html>\n";
-    
-    if (fileName == "none") { // use existing file if it's there
-        photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"0\"></head><body>\n";
-        photoIndex += "READY\n";
-    } else { // otherwise make a new one
-        photoIndex += "<html><head></head><body>\n";
-        string shortName = ofFilePath::getFileName(fileName);
-        photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
-    }
-
-    photoIndex += "</body></html>\n";
-
-    buff.set(photoIndex.c_str(), photoIndex.size());
-    ofBufferToFile(photoIndexFileName, buff);
-}
-
+// ~ ~ ~ WEBSOCKETS ~ ~ ~
 void ofApp::onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt) {
-    cout << "Connection opened from: ?" << endl;// << evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << "Websocket connection opened." << endl;// << evt.getConnectionRef().getClientAddress().toString() << endl;
+
+    beginTakePhoto();
 }
 
 
 void ofApp::onWebSocketCloseEvent(ofxHTTP::WebSocketCloseEventArgs& evt) {
-    cout << "Connection closed from: ?" << endl; //<< evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << "Websocket connection closed." << endl; //<< evt.getConnectionRef().getClientAddress().toString() << endl;
 }
 
 
 void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
-    cout << "Frame from: ?" << endl; // << evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << "Websocket frame was received." << endl; // << evt.getConnectionRef().getClientAddress().toString() << endl;
 
-    ofxJSONElement json;
+    beginTakePhoto();
 
     /*
+    ofxJSONElement json;
+
     if (json.parse(evt.getFrameRef().getText())) {
         //std::cout << json.toStyledString() << std::endl;
 
@@ -238,10 +214,45 @@ void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt)
 
 
 void ofApp::onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
-    cout << "Frame was sent to clients." << endl;
+    cout << "Websocket frame was sent." << endl;
 }
 
 
 void ofApp::onWebSocketErrorEvent(ofxHTTP::WebSocketErrorEventArgs& evt) {
-    cout << "Error from: ?" << endl; //<< evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << "Websocket Error." << endl; //<< evt.getConnectionRef().getClientAddress().toString() << endl;
+}
+
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+void ofApp::createResultHtml(string fileName) {
+    string photoIndexFileName = "DocumentRoot/result.html";
+    ofBuffer buff;
+    ofFile photoIndexFile;
+    photoIndexFile.open(ofToDataPath(photoIndexFileName), ofFile::ReadWrite, false);
+
+    string photoIndex = "<!DOCTYPE html>\n";
+    
+    if (fileName == "none") { // use existing file if it's there
+        photoIndex += "<html><head><meta http-equiv=\"refresh\" content=\"0\"></head><body>\n";
+        photoIndex += "WAIT\n";
+    } else { // otherwise make a new one
+        photoIndex += "<html><head></head><body>\n";
+        string shortName = ofFilePath::getFileName(fileName);
+        photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
+    }
+
+    photoIndex += "</body></html>\n";
+
+    buff.set(photoIndex.c_str(), photoIndex.size());
+    ofBufferToFile(photoIndexFileName, buff);
+}
+
+void ofApp::beginTakePhoto() {
+    cam.takePhoto();
+    createResultHtml("none");
+    doShader = true;
+}
+
+void ofApp::endTakePhoto() {
+    createResultHtml(fileName);
+    doShader = false;
 }

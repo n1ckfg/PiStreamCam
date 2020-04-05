@@ -33,8 +33,11 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 		ofPixels pixels;
 		ofShader shader;
 		bool doShader = false;
-		
 		int framerate;
+
+	    void createResultHtml(string filename);
+	    void beginTakePhoto();
+	    void endTakePhoto();
 
 		ofxHTTP::SimpleIPVideoServer streamServer;
     	ofxHTTP::SimpleIPVideoServerSettings streamSettings;
@@ -50,9 +53,6 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 	    void onHTTPPostEvent(ofxHTTP::PostEventArgs& evt);
 	    void onHTTPFormEvent(ofxHTTP::PostFormEventArgs& evt);
 	    void onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& evt);
-
-	    void createResultHtml(string filename);
-
         
         ofxHTTP::SimpleWebSocketServer wsServer;  
 		ofxHTTP::SimpleWebSocketServerSettings wsSettings;
