@@ -1,7 +1,7 @@
 "use strict";
 
-var camNameBegin = "ws://nfg-rpi-";
-var camNameList = [ "3-4", "3-3", "3-2", "3-1", "2-2", "2-1", "0-1" ];
+var camNameBegin = "ws://";
+var camNameList = [ "nfg-rpi-3-4", "nfg-rpi-3-3", "nfg-rpi-3-2", "nfg-rpi-3-1", "nfg-rpi-2-2", "nfg-rpi-2-1", "nfg-rpi-0-1" ];
 var camNameEnd = ".local:7112";
 var camUrls = [];
 var camWs = [];
@@ -61,11 +61,28 @@ function openCamConnections() {
 			camWs.push(ws);
 		} catch (e) { }
 	}	
+
+	for (var i=0; i<camWs.length; i++) {
+		camWs[i].onmessage = function(evt) { onWsMessage(evt) };
+	}
 }
 
 // ~ ~ ~ ~ ~ ~ ~ ~ 
 
+function onWsMessage(evt) {
+	var results = evt.data.split(",");
+	console.log("RESPONSE: " + results[0] + ", " + results[1]);
+	for (var i=0; i<camNameList; i++) {
+		if (results[0] === camNameList[i]) {
+			stillBoxes[i].innerHTML = "<img src=\"http://" + camNameList[i] + ".local:7110/photos/" + results[1] + "\">";
+			break;
+		}
+	}
+}
+
+/*
 var wsUrl = "ws://nfg-rpi-3-4.local:7112";
+var websocket;
 
 function setupWs() {
 	websocket = new WebSocket(wsUrl);
@@ -97,3 +114,4 @@ function doSend(message) {
 	console.log("SENT: " + message);
 	websocket.send(message);
 }
+*/
