@@ -37,7 +37,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 
 	    void createResultHtml(string fileName);
 	    void beginTakePhoto();
-	    void endTakePhoto();
+	    void endTakePhoto(string fileName);
 
 		ofxHTTP::SimpleIPVideoServer streamServer;
     	ofxHTTP::SimpleIPVideoServerSettings streamSettings;

@@ -130,7 +130,7 @@ void ofApp::draw() {
 void ofApp::onTakePhotoComplete(string fileName) {
     ofLog() << "onTakePhotoComplete fileName: " << fileName;  
 
-    endTakePhoto();
+    endTakePhoto(fileName);
 }
 
 // ~ ~ ~ POST ~ ~ ~
@@ -252,7 +252,7 @@ void ofApp::beginTakePhoto() {
     doShader = true;
 }
 
-void ofApp::endTakePhoto() {
+void ofApp::endTakePhoto(string fileName) {
     createResultHtml(fileName);
     doShader = false;
 }
