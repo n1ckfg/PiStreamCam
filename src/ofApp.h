@@ -35,7 +35,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 		bool doShader = false;
 		int framerate;
 
-	    void createResultHtml(string filename);
+	    void createResultHtml(string fileName);
 	    void beginTakePhoto();
 	    void endTakePhoto();
 
