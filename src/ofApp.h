@@ -57,7 +57,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
         ofxHTTP::SimpleWebSocketServer wsServer;  
 		ofxHTTP::SimpleWebSocketServerSettings wsSettings;
 	    void onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt);
-	    void onWebSocketCloseEvent(ofxHTTP::WebSocketEventArgs& evt);
+	    void onWebSocketCloseEvent(ofxHTTP::WebSocketCloseEventArgs& evt);
 	    void onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
 	    void onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
 	    void onWebSocketErrorEvent(ofxHTTP::WebSocketErrorEventArgs& evt);

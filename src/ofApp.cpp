@@ -207,7 +207,7 @@ void ofApp::onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt) {
 }
 
 
-void ofApp::onWebSocketCloseEvent(ofxHTTP::WebSocketEventArgs& evt) {
+void ofApp::onWebSocketCloseEvent(ofxHTTP::WebSocketCloseEventArgs& evt) {
     cout << "Connection closed from: ?" << endl; //<< evt.getConnectionRef().getClientAddress().toString() << endl;
 }
 
