@@ -263,5 +263,5 @@ void ofApp::endTakePhoto(string fileName) {
     doShader = false;
 
     wsFrame = new ofxHTTP::WebSocketFrame("Hello");
-    wsServer.broadcast(wsFrame);
+    wsServer.webSocketRoute().broadcast(wsFrame);
 }
