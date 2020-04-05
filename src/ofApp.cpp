@@ -233,8 +233,6 @@ void ofApp::onWebSocketErrorEvent(ofxHTTP::WebSocketErrorEventArgs& evt) {
 
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 void ofApp::createResultHtml(string fileName) {
-    ofSystem("cp /etc/hostname " + ofToDataPath("DocumentRoot/js/"));
-
     string photoIndexFileName = "DocumentRoot/result.html";
     ofBuffer buff;
     ofFile photoIndexFile;
@@ -248,12 +246,11 @@ void ofApp::createResultHtml(string fileName) {
     } else { // otherwise make a new one
         photoIndex += "<html><head></head><body>\n";
         
-        string lastPath = ofFilePath::getPathForDirectory(fileName);
         string lastFile = ofFilePath::getFileName(fileName);
 
         //lastPhotoTakenName = ofFilePath::getFileName(fileName);
         lastPhotoTakenName = host + "_" + lastFile;
-        ofSystem("mv " + fileName + " " + lastPath + lastPhotoTakenName);
+        ofSystem("mv DocumenRoot/photos/" + lastFile + " DocumenRoot/photos/" + lastPhotoTakenName);
         
         photoIndex += "<a href=\"photos/" + lastPhotoTakenName + "\">" + lastPhotoTakenName + "</a>\n";
     }
