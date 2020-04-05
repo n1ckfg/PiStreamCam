@@ -101,7 +101,8 @@ void ofApp::setup() {
     postServer.start();
 
     ofSystem("cp /etc/hostname " + ofToDataPath("DocumentRoot/js/"));
-    host = ofSystem("cat /etc/hostname").pop_back(); // last char is \n
+    host = ofSystem("cat /etc/hostname");
+    host.pop_back(); // last char is \n
 
     // * websockets *
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/WebSocketConnection.h
