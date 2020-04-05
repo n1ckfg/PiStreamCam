@@ -101,7 +101,7 @@ void ofApp::setup() {
     postServer.start();
 
     ofSystem("cp /etc/hostname " + ofToDataPath("DocumentRoot/js/"));
-    host = ofSystem("cat /etc/hostname");
+    host = ofSystem("cat /etc/hostname").pop_back(); // last char is \n
 
     // * websockets *
     // https://github.com/bakercp/ofxHTTP/blob/master/libs/ofxHTTP/include/ofx/HTTP/WebSocketConnection.h
@@ -242,8 +242,8 @@ void ofApp::createResultHtml(string fileName) {
         photoIndex += "WAIT\n";
     } else { // otherwise make a new one
         photoIndex += "<html><head></head><body>\n";
-        string shortName = ofFilePath::getFileName(fileName);
-        photoIndex += "<a href=\"photos/" + shortName + "\">" + shortName + "</a>\n";
+        lastPhotoTakenName = ofFilePath::getFileName(fileName);
+        photoIndex += "<a href=\"photos/" + lastPhotoTakenName + "\">" + lastPhotoTakenName + "</a>\n";
     }
 
     photoIndex += "</body></html>\n";
@@ -262,6 +262,6 @@ void ofApp::endTakePhoto(string fileName) {
     createResultHtml(fileName);
     doShader = false;
 
-    string msg = host + ", " + fileName;
+    string msg = host + ", " + lastPhotoTakenName;
     wsServer.webSocketRoute().broadcast(ofxHTTP::WebSocketFrame(msg));
 }
