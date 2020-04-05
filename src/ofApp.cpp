@@ -262,6 +262,6 @@ void ofApp::endTakePhoto(string fileName) {
     createResultHtml(fileName);
     doShader = false;
 
-    string msg = host << ", " << fileName;
+    string msg = host + ", " + fileName;
     wsServer.webSocketRoute().broadcast(ofxHTTP::WebSocketFrame(msg));
 }
