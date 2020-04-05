@@ -1,15 +1,21 @@
 "use strict";
 
 var camNameBegin = "ws://nfg-rpi-";
-var camNameList = [ "0-1", "2-1", "2-2", "3-1", "3-2", "3-3", "3-4" ];
+var camNameList = [ "3-4", "3-3", "3-2", "3-1", "2-2", "2-1", "0-1" ];
 var camNameEnd = ".local:7112";
 var camUrls = [];
 var camWs = [];
+var stillBoxes = [];
 
 function main() {
 	makeCamUrls();
 	openCamConnections();
 	setupKeys();
+
+	for (var i=0; i<camNameList; i++) {
+		var sb = document.getElementById("sb"+(i+1));
+		stillBoxes.push(sb);
+	}
 }
 
 window.onload = main;

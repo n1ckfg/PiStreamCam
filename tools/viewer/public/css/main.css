@@ -60,3 +60,12 @@ img {
     font-weight: bold;
     text-shadow: 2px 2px 2px #332244;
 }
+
+.stillbox {
+    position: absolute;
+    width: 64px;
+    height: 48px;
+    left: 256px;
+    top: 192px;
+    background:black;
+}
