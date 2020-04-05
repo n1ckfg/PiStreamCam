@@ -260,4 +260,7 @@ void ofApp::beginTakePhoto() {
 void ofApp::endTakePhoto(string fileName) {
     createResultHtml(fileName);
     doShader = false;
+
+    wsFrame = new ofxHTTP::WebSocketFrame("Hello");
+    wsServer.broadcast(wsFrame);
 }
