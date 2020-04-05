@@ -5,11 +5,12 @@
     <stream_port>7111</stream_port>
     <ws_port>7112</ws_port>
     <framerate>60</framerate>
-    <width>640</width>
-    <height>480</height>
+    <width>320</width>
+    <height>240</height>
     <debug>0</debug>
     <!-- * -->
-    <rpi_cam_version>2</rpi_cam_version>
+    <rpi_cam_version>1</rpi_cam_version>
+    <still_compression>90</still_compression>
     <!-- * -->
     <max_stream_connections>5</max_stream_connections>
     <max_stream_bitrate>512</max_stream_bitrate>

@@ -19,6 +19,7 @@ void ofApp::setup() {
 
     debug = (bool) settings.getValue("settings:debug", 1);
     rpiCamVersion = settings.getValue("settings:rpi_cam_version", 1);
+    stillCompression = settings.getValue("settings:still_compression", 100);
 
     // ~ ~ ~   get a persistent name for this computer   ~ ~ ~
     compname = "RPi";
@@ -65,6 +66,7 @@ void ofApp::setup() {
         camSettings.sensorWidth = 3280;
         camSettings.sensorHeight = 2464;  
     }
+    camSettings.stillQuality = stillCompression;
     //camSettings.enablePixels = true;
     camSettings.enableTexture = true;
     camSettings.autoISO = false;
