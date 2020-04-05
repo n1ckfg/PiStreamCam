@@ -103,7 +103,6 @@ void ofApp::setup() {
     wsServer.webSocketRoute().registerWebSocketEvents(this);
     wsServer.start();
 
-    cout << "Started websocket server at: " << wsServer.getURL() << endl;
     // events: connect, open, close, idle, message, broadcast
 }
 
