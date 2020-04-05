@@ -242,6 +242,6 @@ void ofApp::onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
 }
 
 
-void ofApp::onWebSocketErrorEvent(ofxHTTP::WebSocketEventArgs& evt) {
+void ofApp::onWebSocketErrorEvent(ofxHTTP::WebSocketErrorEventArgs& evt) {
     cout << "Error from: ?" << endl; //<< evt.getConnectionRef().getClientAddress().toString() << endl;
 }

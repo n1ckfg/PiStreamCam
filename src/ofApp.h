@@ -60,6 +60,6 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 	    void onWebSocketCloseEvent(ofxHTTP::WebSocketEventArgs& evt);
 	    void onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
 	    void onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
-	    void onWebSocketErrorEvent(ofxHTTP::WebSocketEventArgs& evt);
+	    void onWebSocketErrorEvent(ofxHTTP::WebSocketErrorEventArgs& evt);
 
 };
