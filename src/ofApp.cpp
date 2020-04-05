@@ -250,7 +250,7 @@ void ofApp::createResultHtml(string fileName) {
 
         //lastPhotoTakenName = ofFilePath::getFileName(fileName);
         lastPhotoTakenName = host + "_" + lastFile;
-        ofSystem("mv DocumenRoot/photos/" + lastFile + " DocumenRoot/photos/" + lastPhotoTakenName);
+        ofSystem("mv DocumentRoot/photos/" + lastFile + " DocumentRoot/photos/" + lastPhotoTakenName);
         
         photoIndex += "<a href=\"photos/" + lastPhotoTakenName + "\">" + lastPhotoTakenName + "</a>\n";
     }
