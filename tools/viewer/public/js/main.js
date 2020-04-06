@@ -101,7 +101,7 @@ function loadToCanvas(url) {
 	    downloadBlob(blob, "test.jpg");
 	  }, "image/jpeg", 1.0);
 	};
-	img.crossOrigin = "Anonymous";              // if from different origin
+	img.crossOrigin = "";              // if from different origin
 	img.src = url;
 }
 
