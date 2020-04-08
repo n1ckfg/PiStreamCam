@@ -119,6 +119,15 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
+    if (!slowVideoUpdate) {
+        updateStreamingVideo();
+    } else if (ofGetElapsedTimef > slowVideoInterval) {
+        updateStreamingVideo();
+        ofResetElapsedTimeCounter();        
+    }
+}
+
+void ofApp::updateStreamingVideo() {
     if (cam.isFrameNew() && cam.isTextureEnabled()) {
         fbo.begin();
         if (doShader) shader.begin();
@@ -197,10 +206,16 @@ void ofApp::onWebSocketCloseEvent(ofxHTTP::WebSocketCloseEventArgs& evt) {
 
 void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
     cout << "Websocket frame was received:" << endl; // << evt.getConnectionRef().getClientAddress().toString() << endl;
-    cout << evt.frame().getText() << endl;
+    string msg = evt.frame().getText();
+    cout <<  msg << endl;
 
-    beginTakePhoto();
-
+    if (msg == "take_photo") {
+        beginTakePhoto();
+    } else if (msg == "update_slow") {
+        slowVideoUpdate = true;
+    } else if (msg == "update_fast") } {
+        slowVideoUpdate = false;
+    }
     /*
     ofxJSONElement json;
 

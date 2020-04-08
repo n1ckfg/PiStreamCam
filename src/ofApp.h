@@ -65,4 +65,9 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 	    void onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
 	    void onWebSocketErrorEvent(ofxHTTP::WebSocketErrorEventArgs& evt);
 
+	    bool slowVideoUpdate = false;
+	    float slowVideoInterval = 0.33;
+
+	    void updateStreamingVideo();
+
 };
