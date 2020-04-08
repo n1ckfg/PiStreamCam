@@ -196,8 +196,9 @@ void ofApp::onWebSocketCloseEvent(ofxHTTP::WebSocketCloseEventArgs& evt) {
 
 
 void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt) {
-    cout << "Websocket frame was received." << endl; // << evt.getConnectionRef().getClientAddress().toString() << endl;
-
+    cout << "Websocket frame was received:" << endl; // << evt.getConnectionRef().getClientAddress().toString() << endl;
+    cout << evt.getFrameRef().getText() << endl;
+    
     beginTakePhoto();
 
     /*
