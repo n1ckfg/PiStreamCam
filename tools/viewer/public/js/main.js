@@ -6,6 +6,7 @@ var camNameEnd = ".local:7112";
 var camUrls = [];
 var camWs = [];
 var stillBoxes = [];
+var slowVideo = false;
 
 function main() {
 	makeCamUrls();
@@ -28,7 +29,18 @@ function setupKeys() {
     });
 
     window.addEventListener("keyup", function(event) {
-        if (getKeyCode(event) == ' ') takePhoto();
+        if (getKeyCode(event) == ' ') {
+        	takePhoto();
+        } else if (getKeyCode(event) == 's') {
+		 	for (var i=0; i<camWs.length; i++) {
+		 		slowVideo = !slowVideo;
+		 		if (slowVideo) {
+					camWs[i].send("update_slow");
+				} else {
+					camWs[i].send("update_fast");
+				}
+			}       	
+        }
     });
 }
 
