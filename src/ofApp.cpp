@@ -121,7 +121,7 @@ void ofApp::setup() {
 void ofApp::update() {
     if (!slowVideoUpdate) {
         updateStreamingVideo();
-    } else if (ofGetElapsedTimef > slowVideoInterval) {
+    } else if (ofGetElapsedTimef() > slowVideoInterval) {
         updateStreamingVideo();
         ofResetElapsedTimeCounter();        
     }
@@ -213,7 +213,7 @@ void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt)
         beginTakePhoto();
     } else if (msg == "update_slow") {
         slowVideoUpdate = true;
-    } else if (msg == "update_fast") } {
+    } else if (msg == "update_fast") {
         slowVideoUpdate = false;
     }
     /*
