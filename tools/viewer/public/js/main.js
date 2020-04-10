@@ -7,6 +7,8 @@ var camUrls = [];
 var camWs = [];
 var stillBoxes = [];
 var slowVideo = false;
+var fileList = [];
+var activeCameras = 0;
 
 function main() {
 	makeCamUrls();
@@ -22,6 +24,10 @@ function main() {
 window.onload = main;
 
 // ~ ~ ~ ~ ~ ~ ~ ~ 
+
+function resetList() {
+	fileList = [];
+}
 
 function takePhoto() {
 	console.log("Taking photos...");
@@ -41,10 +47,9 @@ function makeCamUrls() {
 function openCamConnections() {
 	for (var i=0; i<camUrls.length; i++) {
 		console.log("Attempting to open " + camUrls[i]);
-		try {
-			var ws = new WebSocket(camUrls[i]);
-			camWs.push(ws);
-		} catch (e) { }
+
+		var ws = new WebSocket(camUrls[i]);
+		camWs.push(ws);
 	}	
 
 	for (var i=0; i<camWs.length; i++) {
@@ -55,21 +60,31 @@ function openCamConnections() {
 // ~ ~ ~ ~ ~ ~ ~ ~ 
 
 function onMessage(evt) {
-	var results = evt.data.split(",");
-	console.log(results);
-	for (var i=0; i<camNameList.length; i++) {
-		if (results[0] == camNameList[i]) {
-			var url = "http://" + camNameList[i] + ".local:7110/photos/" + results[1];
-			console.log("RESPONSE: " + url);
-			
-			//var filename = url.split("/")[url.split("/").length-1];
-			//download(filename, url);
-			sendFileList([url]);
+	if (evt.data === "hello") {
+		activeCameras++;
+	} else {
+		var results = evt.data.split(",");
+		console.log(results);
+		for (var i=0; i<camNameList.length; i++) {
+			if (results[0] == camNameList[i]) {
+				var url = "http://" + camNameList[i] + ".local:7110/photos/" + results[1];
+				console.log("RESPONSE: " + url);
+				
+				//var filename = url.split("/")[url.split("/").length-1];
+				//download(filename, url);
+				console.log("Active Cameras: " + activeCameras);
+				
+				fileList.push(url);
+				if (fileList.length >= camWs.length) {
+					sendFileList(fileList);
+					resetList();
+				}
 
-			stillBoxes[i].style.backgroundImage = "url(\"" + url + "\")";
-			stillBoxes[i].style.backgroundSize = "100px 75px";	
+				stillBoxes[i].style.backgroundImage = "url(\"" + url + "\")";
+				stillBoxes[i].style.backgroundSize = "100px 75px";	
 
-			break;
+				break;
+			}
 		}
 	}
 }
