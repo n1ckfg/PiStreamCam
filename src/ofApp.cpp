@@ -196,8 +196,6 @@ void ofApp::onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& args) {
 // ~ ~ ~ WEBSOCKETS ~ ~ ~
 void ofApp::onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt) {
     cout << "Websocket connection opened." << endl;// << evt.getConnectionRef().getClientAddress().toString() << endl;
-
-    wsServer.webSocketRoute().broadcast(ofxHTTP::WebSocketFrame("hello"));
 }
 
 

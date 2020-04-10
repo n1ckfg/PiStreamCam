@@ -53,38 +53,39 @@ function openCamConnections() {
 	}	
 
 	for (var i=0; i<camWs.length; i++) {
+		camWs[i].onopen = function(evt) { onOpen(evt) };
 		camWs[i].onmessage = function(evt) { onMessage(evt) };
 	}
 }
 
 // ~ ~ ~ ~ ~ ~ ~ ~ 
 
+function onOpen(evt) {
+	activeCameras++;
+	console.log("Active Cameras: " + activeCameras);
+}
+
 function onMessage(evt) {
-	if (evt.data === "hello") {
-		activeCameras++;
-	} else {
-		var results = evt.data.split(",");
-		console.log(results);
-		for (var i=0; i<camNameList.length; i++) {
-			if (results[0] == camNameList[i]) {
-				var url = "http://" + camNameList[i] + ".local:7110/photos/" + results[1];
-				console.log("RESPONSE: " + url);
-				
-				//var filename = url.split("/")[url.split("/").length-1];
-				//download(filename, url);
-				console.log("Active Cameras: " + activeCameras);
-				
-				fileList.push(url);
-				if (fileList.length >= camWs.length) {
-					sendFileList(fileList);
-					resetList();
-				}
-
-				stillBoxes[i].style.backgroundImage = "url(\"" + url + "\")";
-				stillBoxes[i].style.backgroundSize = "100px 75px";	
-
-				break;
+	var results = evt.data.split(",");
+	console.log(results);
+	for (var i=0; i<camNameList.length; i++) {
+		if (results[0] == camNameList[i]) {
+			var url = "http://" + camNameList[i] + ".local:7110/photos/" + results[1];
+			console.log("RESPONSE: " + url);
+			
+			//var filename = url.split("/")[url.split("/").length-1];
+			//download(filename, url);
+			
+			fileList.push(url);
+			if (fileList.length >= camWs.length) {
+				sendFileList(fileList);
+				resetList();
 			}
+
+			stillBoxes[i].style.backgroundImage = "url(\"" + url + "\")";
+			stillBoxes[i].style.backgroundSize = "100px 75px";	
+
+			break;
 		}
 	}
 }
