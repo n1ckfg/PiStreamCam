@@ -124,12 +124,12 @@ function download(url, dest, cb) {
 
     // check for request errors
     sendReq.on('error', (err) => {
-        fs.unlinkSync(dest);
+        fs.unlink(dest);
         return cb(err.message);
     });
 
     file.on('error', (err) => { // Handle errors
-        fs.unlinkSync(dest); // Delete the file async. (But we don't check the result)
+        fs.unlink(dest); // Delete the file async. (But we don't check the result)
         return cb(err.message);
     });
 }

@@ -57,8 +57,6 @@ function openCamConnections() {
 		camWs[i].onclose = function(evt) { onClose(evt) };
 		camWs[i].onmessage = function(evt) { onMessage(evt) };
 	}
-
-	fastMode();
 }
 
 function slowMode() {
