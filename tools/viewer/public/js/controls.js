@@ -8,15 +8,6 @@ function setupKeys() {
     window.addEventListener("keyup", function(event) {
         if (getKeyCode(event) == ' ') {
         	takePhoto();
-        } else if (getKeyCode(event) == 's') {
-		 	for (var i=0; i<camWs.length; i++) {
-		 		slowVideo = !slowVideo;
-		 		if (slowVideo) {
-					camWs[i].send("update_slow");
-				} else {
-					camWs[i].send("update_fast");
-				}
-			}       	
         }
     });
 }

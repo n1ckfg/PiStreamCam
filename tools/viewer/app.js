@@ -77,14 +77,17 @@ io.on("connection", function(socket) {
 
     socket.on("download_files", function(event) {
         console.log("RECEIVED: " + event);
-        var urls = event[0].split(',');
+        console.log("Downloading " + event.length + " file(s)...");
         var counter = 0;
-        for (var i=0; i<urls.length; i++) {
-            var temp = urls[i].split('/');
+        for (var i=0; i<event.length; i++) {
+            var temp = event[i].split('/');
             var filename = temp[temp.length-1];
-            download(urls[i], "photos/" + filename, function(response) {
+            download(event[i], "photos/" + filename, function(response) {
                 counter++;
-                if (counter >= urls.length) console.log("DOWNLOAD COMPLETE");
+                if (counter >= event.length) {
+                    console.log("DOWNLOAD COMPLETE");
+                    socket.emit("download_complete", "hello");
+                }
             });
         }
     });

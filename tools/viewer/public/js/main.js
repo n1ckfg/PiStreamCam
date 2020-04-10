@@ -6,7 +6,6 @@ var camNameEnd = ".local:7112";
 var camUrls = [];
 var camWs = [];
 var stillBoxes = [];
-var slowVideo = false;
 var fileList = [];
 var activeCameras = 0;
 
@@ -77,7 +76,7 @@ function onMessage(evt) {
 			//download(filename, url);
 			
 			fileList.push(url);
-			if (fileList.length >= camWs.length) {
+			if (fileList.length >= activeCameras) {
 				sendFileList(fileList);
 				resetList();
 			}
