@@ -11,8 +11,3 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 cd $DIR
 
 npm install
-sudo apt-get install zip unzip
-wget "https://github.com/n1ckfg/OpenSfM/archive/master.zip"
-unzip master.zip
-rm master.zip
-mv OpenSfM-master OpenSfM
