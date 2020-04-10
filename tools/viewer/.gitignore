@@ -1,5 +1,5 @@
 OpenSfM/*
-photos/*
+photos/*.jpg
 *.jpg
 package-lock.json
 

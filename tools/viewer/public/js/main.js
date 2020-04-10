@@ -29,6 +29,7 @@ function resetList() {
 }
 
 function takePhoto() {
+	resetList();
 	console.log("Taking photos...");
 	for (var i=0; i<camWs.length; i++) {
 		camWs[i].send("take_photo");
