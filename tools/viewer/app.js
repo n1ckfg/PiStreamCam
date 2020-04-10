@@ -71,13 +71,18 @@ if (!debug) {
 io.on("connection", function(socket) {
     console.log("A socket.io user connected.");
 
-    var url = "http://nfg-rpi-3-4.local:7110/photos/nfg-rpi-3-4_2020-04-08-22-10-43-354_Q100.jpg";
-    download(url, "file.jpg", function(response) {
-        console.log("Download complete.");
-    });
-
     socket.on("disconnect", function(event) {
         console.log("A socket.io user disconnected.");
+    });
+
+    socket.on("download_files", function(event) {
+        console.log("RECEIVED: " + event);
+        var urls = event[0].split(',');
+        for (var i=0; i<urls.length; i++) {
+            var temp = urls[i].split('/');
+            var filename = temp[temp.length-1];
+            download(urls[i], filename);
+        }
     });
 });
 
