@@ -53,6 +53,7 @@ function openCamConnections() {
 
 	for (var i=0; i<camWs.length; i++) {
 		camWs[i].onopen = function(evt) { onOpen(evt) };
+		camWs[i].onclose = function(evt) { onClose(evt) };
 		camWs[i].onmessage = function(evt) { onMessage(evt) };
 	}
 }
@@ -62,6 +63,13 @@ function openCamConnections() {
 function onOpen(evt) {
 	activeCameras++;
 	console.log("Active Cameras: " + activeCameras);
+	if (activeCameras > camUrls.length) console.log("Error: counted too many active cameras.")
+}
+
+function onClose(evt) {
+	//activeCameras--;
+	//console.log("Active Cameras: " + activeCameras);
+	//if (activeCameras < 0) console.log("Error: counted too few active cameras.")
 }
 
 function onMessage(evt) {
