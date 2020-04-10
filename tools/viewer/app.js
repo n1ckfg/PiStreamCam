@@ -2,7 +2,7 @@
 
 const express = require("express");
 const app = express();
-
+const request = require('request');
 const fs = require("fs");
 const dotenv = require("dotenv").config();
 const debug = process.env.DEBUG === "true";
@@ -71,6 +71,11 @@ if (!debug) {
 io.on("connection", function(socket) {
     console.log("A socket.io user connected.");
 
+    var url = "http://nfg-rpi-3-4.local:7110/photos/nfg-rpi-3-4_2020-04-08-22-10-43-354_Q100.jpg";
+    download(url, "file.jpg", function(response) {
+        console.log("Download complete.");
+    });
+
     socket.on("disconnect", function(event) {
         console.log("A socket.io user disconnected.");
     });
@@ -87,3 +92,32 @@ ws.on("connection", function(socket) {
         //
     };
 });
+
+// https://stackoverflow.com/questions/11944932/how-to-download-a-file-with-node-js-without-using-third-party-libraries
+function download(url, dest, cb) {
+    const file = fs.createWriteStream(dest);
+    const sendReq = request.get(url);
+
+    // verify response code
+    sendReq.on('response', (response) => {
+        if (response.statusCode !== 200) {
+            return cb('Response status was ' + response.statusCode);
+        }
+
+        sendReq.pipe(file);
+    });
+
+    // close() is async, call cb after close completes
+    file.on('finish', () => file.close(cb));
+
+    // check for request errors
+    sendReq.on('error', (err) => {
+        fs.unlink(dest);
+        return cb(err.message);
+    });
+
+    file.on('error', (err) => { // Handle errors
+        fs.unlink(dest); // Delete the file async. (But we don't check the result)
+        return cb(err.message);
+    });
+};
