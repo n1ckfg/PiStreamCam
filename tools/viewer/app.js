@@ -78,10 +78,14 @@ io.on("connection", function(socket) {
     socket.on("download_files", function(event) {
         console.log("RECEIVED: " + event);
         var urls = event[0].split(',');
+        var counter = 0;
         for (var i=0; i<urls.length; i++) {
             var temp = urls[i].split('/');
             var filename = temp[temp.length-1];
-            download(urls[i], filename);
+            download(urls[i], "photos/" + filename, function(response) {
+                counter++;
+                if (counter >= urls.length) console.log("DOWNLOAD COMPLETE");
+            });
         }
     });
 });
