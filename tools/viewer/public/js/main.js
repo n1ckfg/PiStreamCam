@@ -57,6 +57,22 @@ function openCamConnections() {
 		camWs[i].onclose = function(evt) { onClose(evt) };
 		camWs[i].onmessage = function(evt) { onMessage(evt) };
 	}
+
+	fastMode();
+}
+
+function slowMode() {
+    for (var i=0; i<camWs.length; i++) {
+        camWs[i].send("update_slow");
+    }  
+    console.log("Live feed in slow mode.");
+}
+
+function fastMode() {
+    for (var i=0; i<camWs.length; i++) {
+        camWs[i].send("update_fast");
+    }  
+    console.log("Live feed in fast mode.");
 }
 
 // ~ ~ ~ ~ ~ ~ ~ ~ 
@@ -90,7 +106,7 @@ function onMessage(evt) {
 				resetList();
 			}
 
-			stillBoxes[i].style.backgroundImage = "url(\"" + url + "\")";
+			//stillBoxes[i].style.backgroundImage = "url(\"" + url + "\")";
 			stillBoxes[i].style.backgroundSize = "100px 75px";	
 
 			break;

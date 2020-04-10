@@ -82,7 +82,7 @@ io.on("connection", function(socket) {
         for (var i=0; i<event.length; i++) {
             var temp = event[i].split('/');
             var filename = temp[temp.length-1];
-            download(event[i], "photos/" + filename, function(response) {
+            download(event[i], "./photos/" + filename, function(response) {
                 counter++;
                 if (counter >= event.length) {
                     console.log("DOWNLOAD COMPLETE");
@@ -107,8 +107,8 @@ ws.on("connection", function(socket) {
 
 // https://stackoverflow.com/questions/11944932/how-to-download-a-file-with-node-js-without-using-third-party-libraries
 function download(url, dest, cb) {
-    const file = fs.createWriteStream(dest);
-    const sendReq = request.get(url);
+    var file = fs.createWriteStream(dest);
+    var sendReq = request.get(url);
 
     // verify response code
     sendReq.on('response', (response) => {
@@ -124,12 +124,12 @@ function download(url, dest, cb) {
 
     // check for request errors
     sendReq.on('error', (err) => {
-        fs.unlink(dest);
+        fs.unlinkSync(dest);
         return cb(err.message);
     });
 
     file.on('error', (err) => { // Handle errors
-        fs.unlink(dest); // Delete the file async. (But we don't check the result)
+        fs.unlinkSync(dest); // Delete the file async. (But we don't check the result)
         return cb(err.message);
     });
-};
+}

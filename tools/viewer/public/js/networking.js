@@ -11,20 +11,6 @@ socket.on("download_complete", function(data) {
     fastMode();
 });
 
-function slowMode() {
-    for (var i=0; i<camWs.length; i++) {
-        camWs[i].send("update_slow");
-    }  
-    console.log("Live feed in slow mode.");
-}
-
-function fastMode() {
-    for (var i=0; i<camWs.length; i++) {
-        camWs[i].send("update_fast");
-    }  
-    console.log("Live feed in fast mode.");
-}
-
 /*
 socket.on("receive_example", function(data) {
     var index = data[0]["index"];
