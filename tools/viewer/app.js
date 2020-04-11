@@ -7,8 +7,8 @@ const fs = require("fs");
 const dotenv = require("dotenv").config();
 const debug = process.env.DEBUG === "true";
 const { exec } = require("child_process");
-const path_to_photos = "./photos/images/";
-const path_to_opensfm = "~/GitHub/OpenSfM/";
+const path_to_photos = "~/GitHub/RPI/PiStreamCam/tools/viewer/photos";
+const path_to_opensfm = "~/GitHub/OpenSfM";
 
 var options;
 if (!debug) {
@@ -74,24 +74,25 @@ if (!debug) {
 io.on("connection", function(socket) {
     console.log("A socket.io user connected.");
     
-    runCmd(path_to_opensfm + "bin/opensfm_run_all " + path_to_opensfm + "data/berlin");
-
     socket.on("disconnect", function(event) {
-        console.log("A socket.io user disconnected.");
+        console.log("A socket.io user disconnected."); 
     });
 
     socket.on("download_files", function(event) {
         console.log("RECEIVED: " + event);
         console.log("Downloading " + event.length + " file(s)...");
+
         var counter = 0;
         for (var i=0; i<event.length; i++) {
             var temp = event[i].split('/');
             var filename = temp[temp.length-1];
-            download(event[i], path_to_photos + filename, function(response) {
+            download(event[i], "./photos/images/" + filename, function(response) {
                 counter++;
                 if (counter >= event.length) {
                     console.log("DOWNLOAD COMPLETE");
                     socket.emit("download_complete", "hello");
+
+                    doOpenSfmBatch();
                 }
             });
         }
@@ -141,11 +142,53 @@ function download(url, dest, cb) {
 
 function runCmd(cmd) {
     exec(cmd, function(err, stdout, stderr) {
-      if (err) {
-        console.error(`exec error: ${err}`);
-        return;
-      }
+        if (err) {
+            console.error(`exec error: ${err}`);
+            return;
+        }
 
-      console.log(`result: ${stdout}`);
+        console.log(`result: ${stdout}`);
+    });
+}
+
+function doOpenSfm(cmd) {
+    runCmd(path_to_opensfm + "/bin/" + cmd + " " + path_to_photos);
+}
+
+function doOpenSfmBatch() {
+    console.log ("Running OpenSfM...");
+
+    var cmd1 = path_to_opensfm + "/bin/" + "opensfm_run_all" + " " + path_to_photos;
+    var cmd2 = path_to_opensfm + "/bin/" + "opensfm undistort" + " " + path_to_photos;
+    var cmd3 = path_to_opensfm + "/bin/" + "opensfm compute_depthmaps" + " " + path_to_photos;
+
+    exec(cmd1, function(err, stdout, stderr) {
+        if (err) {
+            console.error(`exec error: ${err}`);
+            return;
+        }
+        console.log(`result: ${stdout}`);
+
+        exec(cmd2, function(err, stdout, stderr) {
+            if (err) {
+                console.error(`exec error: ${err}`);
+                return;
+            }
+            console.log(`result: ${stdout}`);
+
+            exec(cmd3, function(err, stdout, stderr) {
+                if (err) {
+                    console.error(`exec error: ${err}`);
+                    return;
+                }
+                console.log(`result: ${stdout}`);
+
+                console.log("OpenSfM: completed depth maps. (3/3)");
+            });
+
+            console.log("OpenSfM: completed undistortion. (2/3)");
+        });
+
+        console.log("OpenSfM: completed calibration. (1/3)");
     });
 }

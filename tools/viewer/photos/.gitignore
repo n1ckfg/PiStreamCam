@@ -1,0 +1,16 @@
+*.json  
+*.csv
+*.log
+*.jpg
+*.jpeg
+reports/*
+exif/*
+matches/*
+features/*
+undistorted/*
+images/*.jpg
+images/*.jpeg
+images/*.json
+images/*.csv
+images/*.log
+
