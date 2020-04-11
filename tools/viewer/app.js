@@ -6,6 +6,9 @@ const request = require('request');
 const fs = require("fs");
 const dotenv = require("dotenv").config();
 const debug = process.env.DEBUG === "true";
+const { exec } = require("child_process");
+const path_to_photos = "./photos/images/";
+const path_to_opensfm = "~/GitHub/OpenSfM/";
 
 var options;
 if (!debug) {
@@ -70,6 +73,8 @@ if (!debug) {
 
 io.on("connection", function(socket) {
     console.log("A socket.io user connected.");
+    
+    runCmd(path_to_opensfm + "bin/opensfm_run_all " + path_to_opensfm + "data/berlin");
 
     socket.on("disconnect", function(event) {
         console.log("A socket.io user disconnected.");
@@ -82,7 +87,7 @@ io.on("connection", function(socket) {
         for (var i=0; i<event.length; i++) {
             var temp = event[i].split('/');
             var filename = temp[temp.length-1];
-            download(event[i], "./photos/" + filename, function(response) {
+            download(event[i], path_to_photos + filename, function(response) {
                 counter++;
                 if (counter >= event.length) {
                     console.log("DOWNLOAD COMPLETE");
@@ -131,5 +136,16 @@ function download(url, dest, cb) {
     file.on('error', (err) => { // Handle errors
         fs.unlink(dest); // Delete the file async. (But we don't check the result)
         return cb(err.message);
+    });
+}
+
+function runCmd(cmd) {
+    exec(cmd, function(err, stdout, stderr) {
+      if (err) {
+        console.error(`exec error: ${err}`);
+        return;
+      }
+
+      console.log(`result: ${stdout}`);
     });
 }

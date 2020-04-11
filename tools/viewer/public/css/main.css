@@ -5,10 +5,15 @@ img {
 
 #container {
     position: absolute;
-    margin: 10px;
+    margin: 25px 10px 10px 10px;
     width: 960px;
     height: 720px;
     border: 1px solid black;
+}
+
+#opensfm {
+    position:absolute;
+    left: 25px;
 }
 
 .videobox {
