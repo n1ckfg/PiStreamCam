@@ -9,19 +9,6 @@ var stillBoxes = [];
 var fileList = [];
 var activeCameras = 0;
 
-function main() {
-	makeCamUrls();
-	openCamConnections();
-	setupKeys();
-
-	for (var i=0; i<camNameList.length; i++) {
-		var sb = document.getElementById("sb"+(i+1));
-		stillBoxes.push(sb);
-	}
-}
-
-window.onload = main;
-
 // ~ ~ ~ ~ ~ ~ ~ ~ 
 
 function resetList() {
@@ -104,7 +91,9 @@ function onMessage(evt) {
 				resetList();
 			}
 
-			//stillBoxes[i].style.backgroundImage = "url(\"" + url + "\")";
+			var thumbnail = document.getElementById(camNameList[i] + "_img");
+			console.log(encodeBase64Image(thumbnail, "jpg"));
+			stillBoxes[i].style.backgroundImage = "url(\"" + encodeBase64Image(thumbnail, "jpg") + "\")";
 			stillBoxes[i].style.backgroundSize = "100px 75px";	
 
 			break;
@@ -112,53 +101,15 @@ function onMessage(evt) {
 	}
 }
 
-function download(filename, url) {
-    var element = document.createElement('a');
-    //element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('href', url);
-    element.setAttribute('download', filename);
-    element.setAttribute('target', '_blank');
-    element.style.display = 'none';
-    document.body.appendChild(element);
+function main() {
+	makeCamUrls();
+	openCamConnections();
+	setupKeys();
 
-    element.click();
-
-    document.body.removeChild(element);
+	for (var i=0; i<camNameList.length; i++) {
+		var sb = document.getElementById("sb"+(i+1));
+		stillBoxes.push(sb);
+	}
 }
 
-
-/*
-var wsUrl = "ws://nfg-rpi-3-4.local:7112";
-var websocket;
-
-function setupWs() {
-	websocket = new WebSocket(wsUrl);
-	websocket.onopen = function(evt) { onOpen(evt) };
-	websocket.onclose = function(evt) { onClose(evt) };
-	websocket.onmessage = function(evt) { onMessage(evt) };
-	websocket.onerror = function(evt) { onError(evt) };
-}
-
-function onOpen(evt) {
-	console.log("CONNECTED");
-	doSend("Hello");
-}
-
-function onClose(evt) {
-	console.log("DISCONNECTED");
-}
-
-function onMessage(evt) {
-	console.log("RESPONSE: " + evt.data);
-	websocket.close();
-}
-
-function onError(evt) {
-	console.log("ERROR: " + evt.data);
-}
-
-function doSend(message) {
-	console.log("SENT: " + message);
-	websocket.send(message);
-}
-*/
+window.onload = main;

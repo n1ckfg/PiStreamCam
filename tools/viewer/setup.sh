@@ -11,3 +11,4 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 cd $DIR
 
 npm install
+git clone https://github.com/n1ckfg/OpenSfM
