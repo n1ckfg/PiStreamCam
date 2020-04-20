@@ -91,11 +91,19 @@ function onMessage(evt) {
 				resetList();
 			}
 
+			/*
 			var thumbnail = document.getElementById(camNameList[i] + "_img");
-			console.log(encodeBase64Image(thumbnail, "jpg"));
-			stillBoxes[i].style.backgroundImage = "url(\"" + encodeBase64Image(thumbnail, "jpg") + "\")";
-			stillBoxes[i].style.backgroundSize = "100px 75px";	
-
+			// https://stackoverflow.com/questions/14595541/capture-div-into-image-using-html2canvas
+			html2canvas(thumbnail, {
+		        useCORS: true,
+		        allowTaint: true,
+		        onrendered: function(canvas) {
+					stillBoxes[i].style.backgroundImage = "url(\"" + "data:image/png;base64," + encodeBase64Image(thumbnail, "png") + "\")";
+					stillBoxes[i].style.backgroundSize = "100px 75px";	
+		        }				
+			});
+			*/
+			
 			break;
 		}
 	}
