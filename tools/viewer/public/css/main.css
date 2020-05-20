@@ -1,3 +1,7 @@
+body {
+    background-color: #eeeeee;
+}
+
 img {
     width: 320px;
     height: 240px;
@@ -6,9 +10,10 @@ img {
 #container {
     position: absolute;
     margin: 25px 10px 10px 10px;
-    width: 960px;
+    width: 1600px;
     height: 720px;
     border: 1px solid black;
+    background-color: #aaaaaa;
 }
 
 #opensfm {
@@ -39,23 +44,13 @@ img {
 }
 
 #vb4 {
-    left: 0px;
-    top: 240px;
+    left: 960px;
+    top: 0px;
 }
 
 #vb5 {
-    left: 320px;
-    top: 240px;
-}
-
-#vb6 {
-    left: 640px;
-    top: 240px;
-}
-
-#vb7 {
-    left: 0px;
-    top: 480px;
+    left: 1280px;
+    top: 0px;
 }
 
 .label {

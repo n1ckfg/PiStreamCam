@@ -1,7 +1,8 @@
 "use strict";
 
 var camNameBegin = "ws://";
-var camNameList = [ "nfg-rpi-3-4", "nfg-rpi-3-3", "nfg-rpi-3-2", "nfg-rpi-3-1", "nfg-rpi-2-2", "nfg-rpi-2-1", "nfg-rpi-0-1" ];
+//var camNameList = [ "nfg-rpi-3-4", "nfg-rpi-3-3", "nfg-rpi-3-2", "nfg-rpi-3-1", "nfg-rpi-2-2", "nfg-rpi-2-1", "nfg-rpi-0-1" ];
+var camNameList = [ "nfg-rpi-3-4", "nfg-rpi-3-3", "nfg-rpi-2-2", "nfg-rpi-2-1", "nfg-rpi-0-1" ];
 var camNameEnd = ".local:7112";
 var camUrls = [];
 var camWs = [];
