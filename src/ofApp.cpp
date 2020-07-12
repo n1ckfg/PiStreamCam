@@ -7,10 +7,10 @@ void ofApp::setup() {
     ofSetVerticalSync(false);
     ofHideCursor();
 
-    framerate = settings.getValue("settings:framerate", 60);
+    appFramerate = settings.getValue("settings:app_framerate", 60);
     width = settings.getValue("settings:width", 640);
     height = settings.getValue("settings:height", 480);
-    ofSetFrameRate(framerate);
+    ofSetFrameRate(appFramerate);
 
     host = settings.getValue("settings:host", "127.0.0.1");
     postPort = settings.getValue("settings:post_port", 7110);
@@ -89,7 +89,6 @@ void ofApp::setup() {
     streamServer.setup(streamSettings);
     streamServer.start();
 
-    shader.load("shaders/es/invert");
     fbo.allocate(width, height, GL_RGBA);
     pixels.allocate(width, height, OF_IMAGE_COLOR);
 
@@ -119,20 +118,9 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-    if (!slowVideoUpdate) {
-        updateStreamingVideo();
-    } else if (ofGetElapsedTimef() > slowVideoInterval) {
-        updateStreamingVideo();
-        ofResetElapsedTimeCounter();        
-    }
-}
-
-void ofApp::updateStreamingVideo() {
     if (cam.isFrameNew() && cam.isTextureEnabled()) {
         fbo.begin();
-        if (doShader) shader.begin();
         cam.draw(0,0);
-        if (doShader) shader.end();
         fbo.end();
         fbo.readToPixels(pixels);
         streamServer.send(pixels);
@@ -142,8 +130,13 @@ void ofApp::updateStreamingVideo() {
 //--------------------------------------------------------------
 void ofApp::draw() {
     if (debug && cam.isTextureEnabled()) {
-        fbo.draw(0, 0);
-    } 
+        cam.draw(0, 0);
+
+        stringstream info;
+        info << "FPS: " << ofGetFrameRate() << "\n";
+        //info << "Camera Resolution: " << cam.width << "x" << cam.height << " @ "<< "xx" <<"FPS"<< "\n";
+        ofDrawBitmapStringHighlight(info.str(), 10, 10, ofColor::black, ofColor::yellow);
+    }
 }
 
 // ~ ~ ~ CAM ~ ~ ~
@@ -211,11 +204,7 @@ void ofApp::onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt)
 
     if (msg == "take_photo") {
         beginTakePhoto();
-    } else if (msg == "update_slow") {
-        slowVideoUpdate = true;
-    } else if (msg == "update_fast") {
-        slowVideoUpdate = false;
-    }
+    } 
     /*
     ofxJSONElement json;
 
@@ -280,12 +269,10 @@ void ofApp::createResultHtml(string fileName) {
 void ofApp::beginTakePhoto() {
     cam.takePhoto();
     createResultHtml("none");
-    doShader = true;
 }
 
 void ofApp::endTakePhoto(string fileName) {
     createResultHtml(fileName);
-    doShader = false;
 
     string msg = host + "," + lastPhotoTakenName;
     wsServer.webSocketRoute().broadcast(ofxHTTP::WebSocketFrame(msg));

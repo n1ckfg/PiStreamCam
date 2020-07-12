@@ -4,10 +4,10 @@
     <post_port>7110</post_port>
     <stream_port>7111</stream_port>
     <ws_port>7112</ws_port>
-    <framerate>30</framerate>
+    <app_framerate>60</app_framerate>
     <width>320</width>
     <height>240</height>
-    <debug>0</debug>
+    <debug>1</debug>
     <!-- * -->
     <rpi_cam_version>2</rpi_cam_version>
     <still_compression>100</still_compression>

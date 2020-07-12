@@ -54,3 +54,5 @@ LINUX_ARM7_COMPILER_OPTIMIZATIONS = -march=armv7-a -mtune=cortex-a8 -finline-fun
 
 
 
+PROJECT_LDFLAGS += -latomic
+

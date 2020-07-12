@@ -28,46 +28,35 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
 		ofxXmlSettings settings;
 
 		ofxOMXPhotoGrabber cam;
- 	    ofxOMXCameraSettings camSettings;
+ 		ofxOMXCameraSettings camSettings;
 		ofFbo fbo;
 		ofPixels pixels;
-		ofShader shader;
-		bool doShader = false;
-		int framerate;
+		int appFramerate;
 		int rpiCamVersion = 0; // 0 for not an RPi cam, 1 for v1, 2 for v2
 		string lastPhotoTakenName;
 		int stillCompression;
 
-	    void createResultHtml(string fileName);
-	    void beginTakePhoto();
-	    void endTakePhoto(string fileName);
+	    	void createResultHtml(string fileName);
+	    	void beginTakePhoto();
+	    	void endTakePhoto(string fileName);
 
 		ofxHTTP::SimpleIPVideoServer streamServer;
-    	ofxHTTP::SimpleIPVideoServerSettings streamSettings;
-	    vector<string> photoFiles;
-    	void onTakePhotoComplete(string fileName) override;
-	    void onPhotoGrabberEngineStart()override 
-	    {
-	        
-	    };
-
-	    ofxHTTP::SimplePostServer postServer;
+    		ofxHTTP::SimpleIPVideoServerSettings streamSettings;
+	    	vector<string> photoFiles;
+    		void onTakePhotoComplete(string fileName) override;
+	    	void onPhotoGrabberEngineStart()override { };
+	    	ofxHTTP::SimplePostServer postServer;
 		ofxHTTP::SimplePostServerSettings postSettings;
-	    void onHTTPPostEvent(ofxHTTP::PostEventArgs& evt);
-	    void onHTTPFormEvent(ofxHTTP::PostFormEventArgs& evt);
-	    void onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& evt);
+	    	void onHTTPPostEvent(ofxHTTP::PostEventArgs& evt);
+	    	void onHTTPFormEvent(ofxHTTP::PostFormEventArgs& evt);
+	    	void onHTTPUploadEvent(ofxHTTP::PostUploadEventArgs& evt);
         
-        ofxHTTP::SimpleWebSocketServer wsServer;  
+       		ofxHTTP::SimpleWebSocketServer wsServer;  
 		ofxHTTP::SimpleWebSocketServerSettings wsSettings;
-	    void onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt);
-	    void onWebSocketCloseEvent(ofxHTTP::WebSocketCloseEventArgs& evt);
-	    void onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
-	    void onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
-	    void onWebSocketErrorEvent(ofxHTTP::WebSocketErrorEventArgs& evt);
-
-	    bool slowVideoUpdate = false;
-	    float slowVideoInterval = 0.33;
-
-	    void updateStreamingVideo();
+	    	void onWebSocketOpenEvent(ofxHTTP::WebSocketEventArgs& evt);
+	    	void onWebSocketCloseEvent(ofxHTTP::WebSocketCloseEventArgs& evt);
+	    	void onWebSocketFrameReceivedEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
+	    	void onWebSocketFrameSentEvent(ofxHTTP::WebSocketFrameEventArgs& evt);
+	    	void onWebSocketErrorEvent(ofxHTTP::WebSocketErrorEventArgs& evt);
 
 };
