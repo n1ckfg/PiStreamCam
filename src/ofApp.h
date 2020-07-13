@@ -31,7 +31,7 @@ class ofApp : public ofBaseApp, public ofxOMXPhotoGrabberListener {
  		ofxOMXCameraSettings camSettings;
 		ofFbo fbo;
 		ofPixels pixels;
-		int appFramerate;
+		int appFramerate, camFramerate;
 		int rpiCamVersion = 0; // 0 for not an RPi cam, 1 for v1, 2 for v2
 		string lastPhotoTakenName;
 		int stillCompression;

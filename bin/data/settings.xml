@@ -5,6 +5,7 @@
     <stream_port>7111</stream_port>
     <ws_port>7112</ws_port>
     <app_framerate>60</app_framerate>
+    <cam_framerate>30</cam_framerate>
     <width>320</width>
     <height>240</height>
     <debug>1</debug>

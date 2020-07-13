@@ -8,8 +8,10 @@ void ofApp::setup() {
     ofHideCursor();
 
     appFramerate = settings.getValue("settings:app_framerate", 60);
+    camFramerate = settings.getValue("settings:cam_framerate", 30);
     width = settings.getValue("settings:width", 640);
     height = settings.getValue("settings:height", 480);
+    ofSetWindowShape(width, height);
     ofSetFrameRate(appFramerate);
 
     host = settings.getValue("settings:host", "127.0.0.1");
@@ -71,6 +73,7 @@ void ofApp::setup() {
     camSettings.enableTexture = true;
     camSettings.autoISO = false;
     camSettings.autoShutter = false;
+    camSettings.framerate = camFramerate;
     camSettings.savedPhotosFolderName = "DocumentRoot/photos"; // default "photos"
     camSettings.photoGrabberListener = this; //not saved in JSON file
     cam.setup(camSettings);
